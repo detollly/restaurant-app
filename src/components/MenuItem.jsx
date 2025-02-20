@@ -1,6 +1,23 @@
 import React from "react";
 import styled from "styled-components";
 
+const MenuItem = ({ id, name, description, price, category, img }) => {
+    
+    console.log(`Item ${id} name is ${name}`); 
+    
+    return (
+        <Product>
+            <img src={img} alt={description} />
+            <h2>{name}</h2>
+            <p>{price}</p>
+            <button className="add-to-cart">Add to Cart</button>
+        </Product>
+    );
+};
+
+export default MenuItem;
+
+/* Moved to bottom to reduce scroll time editing MenuItem */
 const Product = styled.div`
     display: flex;
     flex-direction: column;
@@ -50,16 +67,3 @@ const Product = styled.div`
         transform: translateY(-5px);
     }
 `;
-
-const MenuItem = ({ imgSrc, altText, productName, price }) => {
-    return (
-        <Product>
-            <img src={imgSrc} alt={altText} />
-            <h2>{productName}</h2>
-            <p>{price}</p>
-            <button className="add-to-cart">Add to Cart</button>
-        </Product>
-    );
-};
-
-export default MenuItem;

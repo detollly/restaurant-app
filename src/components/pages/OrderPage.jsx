@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from 'styled-components'
+import Menu from "../Menu";
 
 const OrderPage = () => {
 
@@ -64,6 +65,8 @@ const OrderPage = () => {
         <OrderPageCSS>
 
             {/* <Menu/> and <Basket/> will go here */}
+            <Menu addItem={addItem} removeItem={removeItem} getItemQuantity={getItemQuantity} />
+            {/* Basket will have 'removeItem' and 'getItemQuantity' */}
 
         </OrderPageCSS>
     )
