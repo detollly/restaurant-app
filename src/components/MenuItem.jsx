@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
-const MenuItem = ({ id, name, description, price, category, img }) => {
+const MenuItem = ({ id, name, description, price, category, img, 
+    addItem, removeItem, getItemQuantity }) => {
     
     console.log(`Item ${id} name is ${name}`); 
     

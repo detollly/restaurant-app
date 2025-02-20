@@ -65,6 +65,7 @@ const OrderPage = () => {
         <OrderPageCSS>
 
             {/* <Menu/> and <Basket/> will go here */}
+
             <Menu addItem={addItem} removeItem={removeItem} getItemQuantity={getItemQuantity} />
             {/* Basket will have 'removeItem' and 'getItemQuantity' */}
 
@@ -78,11 +79,7 @@ export default OrderPage
 /* Adjust styles here */
 const OrderPageCSS = styled.div`
 
-    box-sizing:
-
-
-
-
+    box-sizing: border-box;
 
 
 
