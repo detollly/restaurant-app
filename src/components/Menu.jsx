@@ -1,28 +1,13 @@
-import React, {useState} from "react";
+import React from 'react'
 
-const Menu = (props) => {
-const {listText} = props
+function Menu({selectedItems, addItem, removeItem, getItemQuantity}) /* Props from OrderPage */
+{
+    /* This is really just a container for MenuItem */
 
-const [count, setCount] = useState(0)
 
-const incrementCount = () => {
-    setCount(count+1)
 }
 
-
-    return (
-        <>
-        <h1>I wil be a menu</h1>
-        <ul>
-            <li>{listText}</li>
-        </ul>
-
-        <button onClick={incrementCount}>{count}</button>
-        </>
-    )
-}
-
-export default Menu
+export default Menu; 
 
 
-test
+
