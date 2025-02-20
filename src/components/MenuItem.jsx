@@ -1,0 +1,65 @@
+import React from "react";
+import styled from "styled-components";
+
+const Product = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    width: 60%;
+    margin: 10px;
+    text-align: center;
+    background: #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s;
+
+    img {
+        width: 100%;
+        max-width: 200px;
+        height: auto;
+        margin: 20px 0;
+    }
+
+    h2 {
+        margin: 0 0 10px;
+        color: #333;
+    }
+
+    p {
+        color: #777;
+        margin-bottom: 20px;
+    }
+
+    .add-to-cart {
+        background-color: #007bff;
+        color: white;
+        padding: 15px 20px;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .add-to-cart:hover {
+        background-color: #0056b3;
+    }
+
+    &:hover {
+        transform: translateY(-5px);
+    }
+`;
+
+const MenuItem = ({ imgSrc, altText, productName, price }) => {
+    return (
+        <Product>
+            <img src={imgSrc} alt={altText} />
+            <h2>{productName}</h2>
+            <p>{price}</p>
+            <button className="add-to-cart">Add to Cart</button>
+        </Product>
+    );
+};
+
+export default MenuItem;
