@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 
-const MenuItem = ({ id, name, description, price, category, img, 
+const MenuItem = ({ id, name, description, price, category, image, 
     addItem, removeItem, getItemQuantity }) => {
     
     //console.log(`Item ${id} name is ${name}`); 
     
     return (
         <Product>
-            <img src={img} alt={description} />
+            <img src={image} alt={description} />
             <h2>{name}</h2>
             <p>{price}</p>
             <p> qty: {getItemQuantity} </p>
