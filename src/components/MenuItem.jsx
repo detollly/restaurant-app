@@ -4,7 +4,7 @@ import styled from "styled-components";
 const MenuItem = ({ id, name, description, price, category, img, 
     addItem, removeItem, getItemQuantity }) => {
     
-    console.log(`Item ${id} name is ${name}`); 
+    //console.log(`Item ${id} name is ${name}`); 
     
     return (
         <Product>
@@ -12,7 +12,7 @@ const MenuItem = ({ id, name, description, price, category, img,
             <h2>{name}</h2>
             <p>{price}</p>
             <p> qty: {getItemQuantity} </p>
-            <button className="add-to-cart">Add to Cart</button>
+            <button onClick={addItem} className="add-to-cart">Add to Cart</button>
         </Product>
     );
 };

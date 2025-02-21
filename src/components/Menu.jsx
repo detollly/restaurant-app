@@ -25,7 +25,11 @@ const Menu = ({addItem, removeItem, getItemQuantity}) => {
         <MenuCSS>
             <h2> Menu Items </h2>  
             
-            {menuList.map(object => <MenuItem {...object}/>)} {/* What does this display? [2] */}
+            {menuList.map(object => <MenuItem {...object}
+                addItem={() => { addItem(object.id) }}
+                removeItem={() => { removeItem(object.id) }}
+                getItemQuantity={ getItemQuantity(object.id) }
+            />)} {/* What does this display? [2] */}
         </MenuCSS>
     )
 } 
@@ -45,6 +49,16 @@ const MenuCSS = styled.div `
 
 
 `
+
+/* List to get if you cannot connect to online database */
+function getOfflineList()
+{
+    const backupList = [
+        {id: 1, name: 'Burger', description:'Cheese Burger', price: 10.00, category: 'mains', img: ''}
+    ];
+
+    return backupList;
+}
 
 
 /* Notes 

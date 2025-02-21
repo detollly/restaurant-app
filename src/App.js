@@ -2,6 +2,7 @@
 // import MyRoutes from "./components/MyRoutes";
 import MenuItem from "./components/MenuItem"
 import Menu from './components/Menu'; 
+import OrderPage from "./components/pages/OrderPage";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <MenuItem imgSrc="" altText="text" productName="burger" price="10.00"/>
       <>Hello, world!</> */}
 
-      <Menu/>
+      <OrderPage/>
     </>
   );
 }
