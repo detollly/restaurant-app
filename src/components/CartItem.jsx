@@ -1,12 +1,12 @@
 import React from 'react'
 
-
-function CartItem({name, price, quantity})
+function CartItem({name, price, quantity, removeAction})
 {
 
-
     return (
-        <> {/* Handle display here */}</>
+        <> 
+            
+        </>
     )
 }
 

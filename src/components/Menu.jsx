@@ -45,7 +45,7 @@ const Menu = ({addItem, removeItem, quantities}) => {
                 getItemQuantity={ quantities[`${object.id}`] }
             />)} {/* What does this display? [2] */}
 
-            <Cart menuList={menuList} getItemDetails={getItemDetails} quantities={quantities} />
+            <Cart menuList={menuList} getItemDetails={getItemDetails} quantities={quantities} removeItem={removeItem} />
             
         </MenuCSS>
     )

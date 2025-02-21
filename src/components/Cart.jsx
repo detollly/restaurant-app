@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import CartItem from './CartItem';
 
-function Cart({menuList, getItemDetails, quantities})
+function Cart({getItemDetails, quantities, removeItem})
 {
     const[total, setTotal] = useState(0); 
+    const[selectedItems, setSelectedItems] = useState([]); 
 
     useEffect(() =>
     {
-        
+
         setTotal ( getTotal() ); 
 
     }, [quantities]); /* If quantities change, total changes */
@@ -36,15 +37,25 @@ function Cart({menuList, getItemDetails, quantities})
         return workingTotal; 
     }
 
+    useEffect(() => 
+    {
 
+        console.log(Object.keys(quantities)); 
+        setSelectedItems(Object.keys(quantities)); 
+
+    }, [quantities]); 
+    
     return (
         <CartCSS>
+        
             <div className='cart-header'>
                 Total: {total}
             </div>
 
             <div className='cart-items'>
-                {/* {selectedItems.forEach(item => <CartItem {...getItemDetails(item.id)} quantity={quantities[`${item.id}`]}/> )}  */}
+                <ul>
+                    { selectedItems.map(id => <li key={id}> <CartItem {...getItemDetails(Number.parseInt(id))} quantity={quantities[id]} removeAction={() => {removeItem(Number.parseInt(id))}}/> </li> )}
+                </ul>
             </div>
 
         </CartCSS>
@@ -52,16 +63,6 @@ function Cart({menuList, getItemDetails, quantities})
 }
 
 export default Cart; 
-
-function getSum(list)
-{
-    let workingSum = 0;
-
-    for (let i = 0; i < list.length; ++i)
-        workingSum += list[i];
-
-    return workingSum; 
-}
 
 
 const CartCSS = styled.div `
