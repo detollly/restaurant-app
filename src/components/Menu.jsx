@@ -1,4 +1,4 @@
-import React , {useState} from "react";
+import React , {useEffect, useState} from "react";
 import styled from 'styled-components';
 import MenuItem from "./MenuItem";
 
@@ -9,19 +9,23 @@ const Menu = ({addItem, removeItem, getItemQuantity}) => {
 
     async function getMenuItems()
     {
-        fetch('https://djevelyn.helioho.st/menu/all') /* Retrieve from API call */
+        fetch('https://djevelyn.helioho.st/menu/all?key=123') /* Retrieve from API call */
         .then(response => response.json())
         .then(data => { setMenuList(data) } );
     }
 
-    getMenuItems(); 
+    /* Adjustment made - only getMenuItems on setup or change */
+    useEffect(() => 
+    {
+        getMenuItems(); 
+
+    }, []);
 
     return(
         <MenuCSS>
-            <h2> Menu Items </h2>
-
-            {menuList.map(object => <MenuItem {...object} />)} {/* What does this display? [2] */}
-
+            <h2> Menu Items </h2>  
+            
+            {menuList.map(object => <MenuItem {...object}/>)} {/* What does this display? [2] */}
         </MenuCSS>
     )
 } 
@@ -32,6 +36,12 @@ export default Menu
 /* Do styling here */
 /* Could sort into a grid, or a flexbox */
 const MenuCSS = styled.div `
+
+    .menuItemCards{
+        display: grid; 
+        grid-template-columns: 50% 50%;
+        grid-template-rows: auto;
+    }
 
 
 `

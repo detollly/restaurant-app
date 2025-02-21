@@ -11,6 +11,7 @@ const MenuItem = ({ id, name, description, price, category, img,
             <img src={img} alt={description} />
             <h2>{name}</h2>
             <p>{price}</p>
+            <p> qty: {getItemQuantity} </p>
             <button className="add-to-cart">Add to Cart</button>
         </Product>
     );
