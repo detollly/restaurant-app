@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import CartItem from './CartItem';
+import downArrow from '../images/arrow-drop-down-icon-md.png'
+import upArrow from '../images/arrow-drop-up-icon-md.png'
 
 function Cart({getItemDetails, quantities, removeItem})
 {
+    const[displayItems, setDisplayItems] = useState(false); 
     const[total, setTotal] = useState(0); 
     const[selectedItems, setSelectedItems] = useState([]); 
 
@@ -52,9 +55,13 @@ function Cart({getItemDetails, quantities, removeItem})
                 Total: {total}
             </div>
 
+            <div id='displayToggleContainer' onClick={() => setDisplayItems(!displayItems)}>
+                <img id='displayToggle' src={displayItems? downArrow : upArrow}></img>
+            </div>
+
             <div className='cart-items'>
                 <ul>
-                    { selectedItems.map(id => <li key={id}> <CartItem {...getItemDetails(Number.parseInt(id))} quantity={quantities[id]} removeAction={() => {removeItem(Number.parseInt(id))}}/> </li> )}
+                    {displayItems? selectedItems.map(id => <li key={id}> <CartItem {...getItemDetails(Number.parseInt(id))} quantity={quantities[id]} removeAction={() => {removeItem(Number.parseInt(id))}}/> </li> ) : <> </>}
                 </ul>
             </div>
 
@@ -67,7 +74,10 @@ export default Cart;
 
 const CartCSS = styled.div `
 
-
+    #displayToggle {
+        max-width: 60px;
+        max-height: 60px;
+    }
 
 
 
