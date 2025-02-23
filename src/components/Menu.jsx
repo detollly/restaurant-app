@@ -1,9 +1,10 @@
 import React , {useEffect, useState} from "react";
 import styled from 'styled-components';
 import MenuItem from "./MenuItem";
+import Cart from "./Cart";
 
 
-const Menu = ({addItem, removeItem, getItemQuantity}) => {
+const Menu = ({addItem, removeItem, quantities}) => {
 
     const [menuList, setMenuList] = useState([]); /* Why a useState? See [1] at end of the page */
 
@@ -21,6 +22,19 @@ const Menu = ({addItem, removeItem, getItemQuantity}) => {
 
     }, []);
 
+    function getItemDetails(givenId) /* for cart */
+    {
+        for (let i = 0; i < menuList.length; ++i)
+        {
+            const currentItem = menuList[i];
+
+            if (currentItem.id === givenId)
+                return currentItem; 
+        }
+
+        return { }; // An empty object  
+    }
+
     return(
         <MenuCSS>
             <h2> Menu Items </h2>  
@@ -28,8 +42,11 @@ const Menu = ({addItem, removeItem, getItemQuantity}) => {
             {menuList.map(object => <MenuItem {...object}
                 addItem={() => { addItem(object.id) }}
                 removeItem={() => { removeItem(object.id) }}
-                getItemQuantity={ getItemQuantity(object.id) }
+                getItemQuantity={ quantities[`${object.id}`] }
             />)} {/* What does this display? [2] */}
+
+            <Cart menuList={menuList} getItemDetails={getItemDetails} quantities={quantities} removeItem={removeItem} />
+            
         </MenuCSS>
     )
 } 

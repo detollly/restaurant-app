@@ -97,7 +97,7 @@ const OrderPage = () => {
 
             {/* <Menu/> and <Basket/> will go here */}
 
-            <Menu addItem={addItem} removeItem={removeItem} getItemQuantity={getItemQuantity} />
+            <Menu addItem={addItem} removeItem={removeItem} getItemQuantity={getItemQuantity} quantities={quantities} />
             {/* Basket will have 'removeItem' and 'getItemQuantity' */}
 
         </OrderPageCSS>
