@@ -9,7 +9,7 @@ const Menu = ({addItem, removeItem, getItemQuantity}) => {
 
     async function getMenuItems()
     {
-        fetch('https://djevelyn.helioho.st/menu/all?key=123') /* Retrieve from API call */
+        fetch('https://djevelyn.helioho.st/menu/items/all?key=123') /* Retrieve from API call */
         .then(response => response.json())
         .then(data => { setMenuList(data) } );
     }
