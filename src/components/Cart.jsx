@@ -1,86 +1,95 @@
-import React, { useState, useEffect } from 'react'
-import styled from 'styled-components'
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
 import CartItem from './CartItem';
-import downArrow from '../images/arrow-drop-down-icon-md.png'
-import upArrow from '../images/arrow-drop-up-icon-md.png'
 
-function Cart({getItemDetails, quantities, removeItem})
-{
-    const[displayItems, setDisplayItems] = useState(false); 
-    const[total, setTotal] = useState(0); 
-    const[selectedItems, setSelectedItems] = useState([]); 
+const Cart = ({ getItemDetails, quantities, removeItem }) => {
+    const [total, setTotal] = useState(0);
+    const [selectedItems, setSelectedItems] = useState([]);
 
-    useEffect(() =>
-    {
+    // Update the total whenever quantities change
+    useEffect(() => {
+        setTotal(getTotal());
+    }, [quantities]);
 
-        setTotal ( getTotal() ); 
-
-    }, [quantities]); /* If quantities change, total changes */
-
-    function getTotal()
-    {
+    // Calculate the total price of items in the cart
+    const getTotal = () => {
         let workingTotal = 0;
+        const quantityEntries = Object.entries(quantities);
 
-        /* get Quantities object as list of key-value pairs */
-        const quantityEntries = Object.entries(quantities); 
-
-        for (let i = 0; i < quantityEntries.length; ++i)
-        {
+        for (let i = 0; i < quantityEntries.length; ++i) {
             const quantityInfo = quantityEntries[i];
-
-            /* turn ID into a number, then use the get price details  */
-            const { price } = getItemDetails(Number.parseInt(quantityInfo[0]));
-
-            /* get quantity from key-value pair */
-            const quantity = quantityInfo[1]
-
-            workingTotal += quantity * price; 
+            const itemId = Number.parseInt(quantityInfo[0]);
+            const { price } = getItemDetails(itemId);
+            const quantity = quantityInfo[1];
+            workingTotal += quantity * price;
         }
 
-        return workingTotal; 
-    }
+        return workingTotal;
+    };
 
-    useEffect(() => 
-    {
+    // Update selectedItems whenever quantities change
+    useEffect(() => {
+        setSelectedItems(Object.keys(quantities));
+    }, [quantities]);
 
-        console.log(Object.keys(quantities)); 
-        setSelectedItems(Object.keys(quantities)); 
-
-    }, [quantities]); 
-    
     return (
         <CartCSS>
-        
             <div className='cart-header'>
-                Total: {total}
-            </div>
-
-            <div id='displayToggleContainer' onClick={() => setDisplayItems(!displayItems)}>
-                <img id='displayToggle' src={displayItems? downArrow : upArrow}></img>
+                Total: £{total.toFixed(2)}
             </div>
 
             <div className='cart-items'>
                 <ul>
-                    {displayItems? selectedItems.map(id => <li key={id}> <CartItem {...getItemDetails(Number.parseInt(id))} quantity={quantities[id]} removeAction={() => {removeItem(Number.parseInt(id))}}/> </li> ) : <> </>}
+                    {selectedItems.map(id => {
+                        const itemId = Number.parseInt(id);
+                        const itemDetails = getItemDetails(itemId);
+
+                        // Ensure the item exists before rendering
+                        if (!itemDetails || !itemDetails.name) {
+                            return null; // Skip rendering if item details are not found
+                        }
+
+                        return (
+                            <li key={id}>
+                                <CartItem
+                                    {...itemDetails}
+                                    quantity={quantities[id]}
+                                    removeAction={() => removeItem(itemId)}
+                                />
+                            </li>
+                        );
+                    })}
                 </ul>
             </div>
-
         </CartCSS>
-    )
-}
+    );
+};
 
-export default Cart; 
+export default Cart;
 
+const CartCSS = styled.div`
+    position: fixed;
+    right: 0;
+    top: 0;
+    width: 300px;
+    height: 100vh;
+    background-color: #f8f9fa;
+    padding: 20px;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
 
-const CartCSS = styled.div `
-
-    #displayToggle {
-        max-width: 60px;
-        max-height: 60px;
+    .cart-header {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-bottom: 20px;
     }
 
+    .cart-items ul {
+        list-style-type: none;
+        padding: 0;
+    }
 
-
-
-
-`
+    .cart-items li {
+        margin-bottom: 10px;
+    }
+`;
