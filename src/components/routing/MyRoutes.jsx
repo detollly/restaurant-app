@@ -1,23 +1,21 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
-import Homepage from "./pages/HomePage";
-import MenuItems from "./pages/MenuItems";
-import OrderPage from "./pages/OrderPage";
-import CheckoutPage from "./pages/CheckoutPage";
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import NavBar from "./NavBar";
+import Homepage from "../pages/HomePage";
+import OrderPage from "../pages/OrderPage";
+import CheckoutPage from "../pages/CheckoutPage";
 
 const MyRoutes = () => {
-    return(
-        <>
+    return (
         <Router>
+            <NavBar/>
             <Routes>
-                <Route path="./pages/homepage" element={<Homepage/>}/>
-                <Route path="./pages/menuitems" element={<MenuItems/>}/>
-                <Route path="./pages/order" element={<OrderPage/>}/>
-                <Route path="./pages/checkout" element={<CheckoutPage/>}/>
+                <Route path="/" element={<Homepage/>}/>
+                <Route path="/order" element={<OrderPage/>}/>
+                <Route path="/checkout" element={<CheckoutPage/>}/>
             </Routes>
         </Router>
-        </>
-    )
+    );
 }
 
 export default MyRoutes;
