@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 const MenuItem = ({ id, name, description, price, category, image, 
     addItem, removeItem, getItemQuantity }) => {
@@ -8,10 +9,14 @@ const MenuItem = ({ id, name, description, price, category, image,
     
     return (
         <Product>
+        
+        <Link to={`/item/${id}`}>
             <img src={image} alt={description} />
             <h2>{name}</h2>
             <p>{price}</p>
             <p> qty: {getItemQuantity} </p>
+        </Link>
+
             <button onClick={addItem} className="add-to-cart">Add to Cart</button>
         </Product>
     );
@@ -67,5 +72,10 @@ const Product = styled.div`
 
     &:hover {
         transform: translateY(-5px);
+    }
+
+    /* for Link - to remove link underline */
+    a {
+        text-decoration: none;
     }
 `;
