@@ -146,7 +146,7 @@ export default OrderPage
 function getSelectedItemsFromQuantities(quantities)
 {
     const objectQuantities = JSON.parse(quantities); 
-    const entries = objectQuantities === undefined? Object.entries(objectQuantities);
+    const entries = objectQuantities === undefined? [] : Object.entries(objectQuantities);
     let workingSelectedItems = [];
 
     entries.forEach(entry => 
