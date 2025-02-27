@@ -6,44 +6,53 @@ import Cart from "./Cart";
 
 const Menu = ({addItem, removeItem, quantities}) => {
 
-    const [menuList, setMenuList] = useState([]); /* Why a useState? See [1] at end of the page */
+    const [menuList, setMenuList] = useState([]);
+    const [category, setCategory] = useState('all');
 
-    async function getMenuItems()
-    {
-        fetch('https://djevelyn.helioho.st/menu/items/all?key=123') /* Retrieve from API call */
+    async function getMenuItems() {
+        fetch('https://djevelyn.helioho.st/menu/items/all?key=123')
         .then(response => response.json())
-        .then(data => { setMenuList(data) } );
+        .then(data => { setMenuList(data) });
     }
 
-    /* Adjustment made - only getMenuItems on setup or change */
-    useEffect(() => 
-    {
+    useEffect(() => {
         getMenuItems(); 
-
     }, []);
 
-    function getItemDetails(givenId) /* for cart */
-    {
-        for (let i = 0; i < menuList.length; ++i)
-        {
+    function getItemDetails(givenId) {
+        for (let i = 0; i < menuList.length; ++i) {
             const currentItem = menuList[i];
-
             if (currentItem.id === givenId)
                 return currentItem; 
         }
-
-        return { }; // An empty object  
+        return { };
     }
+
+    const filterItems = () => {
+        return category === 'all' ? menuList : menuList.filter(item => item.category === category);
+    };
 
     return(
         <MenuCSS>
             <h2> Menu Items </h2>  
             
-            {menuList.map(object => <MenuItem {...object}
-                addItem={() => { addItem(object.id) }}
-                removeItem={() => { removeItem(object.id) }}
-                getItemQuantity={ quantities[`${object.id}`] }
-            />)} {/* What does this display? [2] */}
+            <div>
+                <button onClick={() => setCategory('all')}>All</button>  {/* Category Buttons */}
+                <button onClick={() => setCategory('mains')}>Mains</button>  {/* Category Buttons */}
+                <button onClick={() => setCategory('vegetarian')}>Vegetarian</button>  {/* Category Buttons */}
+                <button onClick={() => setCategory('sides')}>Sides</button>  {/* Category Buttons */}
+                <button onClick={() => setCategory('drinks')}>Drinks</button>  {/* Category Buttons */}
+                <button onClick={() => setCategory('dessert')}>Dessert</button>  {/* Category Buttons */}
+            </div>
+            <div className="menuItemCards">
+                {filterItems().map(object => (
+                    <MenuItem {...object}
+                        addItem={() => { addItem(object.id) }}
+                        removeItem={() => { removeItem(object.id) }}
+                        getItemQuantity={ quantities[`${object.id}`] }
+                    />
+                ))}  {/* Updated the items display */}
+            </div>
 
             <Cart menuList={menuList} getItemDetails={getItemDetails} quantities={quantities} removeItem={removeItem} />
             
