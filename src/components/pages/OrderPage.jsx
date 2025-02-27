@@ -15,7 +15,7 @@ const OrderPage = () => {
     {
         const cart = localStorage.getItem('cart')
         
-        if (cart !== undefined && Object.keys(quantities).length == 0)
+        if (cart !== undefined && cart !== null && Object.keys(quantities).length == 0)
         {
             /* Set starting values */
             const cartSelectedItems = getSelectedItemsFromQuantities( cart );
@@ -146,7 +146,7 @@ export default OrderPage
 function getSelectedItemsFromQuantities(quantities)
 {
     const objectQuantities = JSON.parse(quantities); 
-    const entries = objectQuantities === undefined? [] : Object.entries(objectQuantities);
+    const entries = Object.entries(objectQuantities);
     let workingSelectedItems = [];
 
     entries.forEach(entry => 

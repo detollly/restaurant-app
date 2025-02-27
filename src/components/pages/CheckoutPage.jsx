@@ -96,7 +96,7 @@ export default function CheckoutPage()
 function getCartItems()
 {
     let itemsString = localStorage.getItem('cart');
-    let items = JSON.parse(itemsString);
+    let items = itemsString !== undefined && itemsString !== null? JSON.parse(itemsString) : {};
 
     return items; 
 }
