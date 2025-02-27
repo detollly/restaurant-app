@@ -7,30 +7,7 @@ const OrderPage = () => {
     /* The order page holds a list of all selected items as an id value*/ 
     const [selectedItems, setSelectedItems] = useState([]); 
     const [quantities, setQuantities] = useState({}); 
-    const [cartLoadAttempted, setCartLoadAttempted] = useState(false); 
 
-
-    /* Load cart values */
-    useEffect(() =>
-    {
-        const cart = localStorage.getItem('cart')
-        
-        if (cart !== undefined && Object.keys(quantities).length == 0)
-        {
-            /* Set starting values */
-            const cartSelectedItems = getSelectedItemsFromQuantities( cart );
-            console.log(`cartSelectedItems = ${cartSelectedItems}`); 
-
-            setSelectedItems( [...cartSelectedItems] );   
-            
-            /* set - as useState is asyncronous */
-            const workingQuantities = calculateQuantities(cartSelectedItems); 
-            localStorage.setItem('cart',  JSON.stringify(workingQuantities) ); 
-        }
-
-        setCartLoadAttempted(true); 
-
-    }, []);
 
     /* These items will be passed as PROPS to each MenuItem and Basket */
     /* Menu.jsx and Basket.jsx will be children of OrderPage */
@@ -59,27 +36,15 @@ const OrderPage = () => {
 
     useEffect(() => 
     {
-        if (cartLoadAttempted === false)
-            return; 
-
-        /* update quantities */
-        calculateQuantities(selectedItems); 
+        /* Update quantities */
+        calculateQuantities(); 
 
     }, [selectedItems]); /* Reasoning for useEffect (see at bottom of page) [1] */
 
-    useEffect(() => 
-    {
-        if (cartLoadAttempted === false)
-            return; 
-
-        localStorage.setItem('cart',  JSON.stringify(quantities) ); 
-
-    }, [quantities]);
-
-    function calculateQuantities(givenSelectedItems)
+    function calculateQuantities()
     {
         /* Get unique elements in selectedItems list */
-        const uniqueItems = givenSelectedItems.filter(onlyUnique);
+        const uniqueItems = selectedItems.filter(onlyUnique);
 
         /* Get count of each */
         let workingQuantities = {};
@@ -89,9 +54,9 @@ const OrderPage = () => {
             const uniqueItem = uniqueItems[i];
             let count = 0;
 
-            for (let j = 0; j < givenSelectedItems.length; ++j)
+            for (let j = 0; j < selectedItems.length; ++j)
             {
-                const selectedItem = givenSelectedItems[j];
+                const selectedItem = selectedItems[j];
 
                 if (uniqueItem === selectedItem)
                     ++count; 
@@ -103,7 +68,6 @@ const OrderPage = () => {
         console.log(JSON.stringify(workingQuantities));
 
         setQuantities({...workingQuantities});
-        return { ...workingQuantities};
     }
 
     function getItemQuantity(itemId)
@@ -141,25 +105,6 @@ const OrderPage = () => {
 } 
 
 export default OrderPage
-
-
-function getSelectedItemsFromQuantities(quantities)
-{
-    const objectQuantities = JSON.parse(quantities); 
-    const entries = Object.entries(objectQuantities);
-    let workingSelectedItems = [];
-
-    entries.forEach(entry => 
-    {
-        const id = Number.parseInt(entry[0]);
-        const amount = entry[1];
-
-        for (let i = 0; i < amount; ++i)
-            workingSelectedItems.push(id);
-    });
-
-    return workingSelectedItems; 
-}
 
 
 /* Adjust styles here */
