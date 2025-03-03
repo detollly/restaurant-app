@@ -34,27 +34,38 @@ const Menu = ({addItem, removeItem, quantities}) => {
 
     return(
         <MenuCSS>
-            <h2> Menu Items </h2>  
-            
-            <div>
-                <button onClick={() => setCategory('all')}>All</button>  {/* Category Buttons */}
-                <button onClick={() => setCategory('mains')}>Mains</button>  {/* Category Buttons */}
-                <button onClick={() => setCategory('vegetarian')}>Vegetarian</button>  {/* Category Buttons */}
-                <button onClick={() => setCategory('sides')}>Sides</button>  {/* Category Buttons */}
-                <button onClick={() => setCategory('drinks')}>Drinks</button>  {/* Category Buttons */}
-                <button onClick={() => setCategory('dessert')}>Dessert</button>  {/* Category Buttons */}
-            </div>
-            <div className="menuItemCards">
-                {filterItems().map(object => (
-                    <MenuItem {...object}
-                        addItem={() => { addItem(object.id) }}
-                        removeItem={() => { removeItem(object.id) }}
-                        getItemQuantity={ quantities[`${object.id}`] }
-                    />
-                ))}  {/* Updated the items display */}
+
+            <div className="menuSection"> 
+
+                <h1>Menu</h1>
+
+                <div className="menuCategorySection">
+
+                    {/* Category Buttons */}
+                    {categories.map(category => (
+                        <button onClick={() => setCategory(category)}>{category}</button>
+                    ))}
+
+                </div>
+
+                
+                <div className="menuItemCards">
+                    {filterItems().map(object => (
+                        <MenuItem {...object}
+                            addItem={() => { addItem(object.id) }}
+                            removeItem={() => { removeItem(object.id) }}
+                            getItemQuantity={ quantities[`${object.id}`] }
+                        />
+                    ))}  {/* Updated the items display */}
+                </div>
+
             </div>
 
-            <Cart menuList={menuList} getItemDetails={getItemDetails} quantities={quantities} removeItem={removeItem} />
+            <div className="cartSection">
+
+                <Cart menuList={menuList} getItemDetails={getItemDetails} quantities={quantities} removeItem={removeItem} />
+
+            </div>
             
         </MenuCSS>
     )
@@ -63,16 +74,53 @@ const Menu = ({addItem, removeItem, quantities}) => {
 export default Menu
 
 
+const categories = ['all', 'mains', 'vegetarian', 'sides', 'drinks', 'dessert'];
+
+
 /* Do styling here */
 /* Could sort into a grid, or a flexbox */
 const MenuCSS = styled.div `
 
-    .menuItemCards{
-        display: grid; 
-        grid-template-columns: 50% 50%;
-        grid-template-rows: auto;
+    box-sizing: border-box;
+    
+    width: 100%; 
+    height: 100%; 
+
+    display: grid;
+    grid-template-columns: 75% 1fr;
+    grid-template-areas: 'menu cart';
+
+    .menuSection {
+        grid-area: menu;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start; /* Changed to start to align items to top */
+        height: 100%; /* Ensure menu section takes full available height */
+        padding-bottom: 20px; /* Added some padding to prevent content being hidden by scroll */
+        overflow-y: auto;
     }
 
+    .cartSection {
+        grid-area: cart;
+        width: 100%;
+        height: 100%; /* Ensure cart section takes full available height */
+        overflow-y: auto;
+    }
+
+    .menuCategorySection {
+        width: 50%; 
+        display: flex;
+        justify-content: space-evenly;
+        margin-bottom: 20px;
+    }
+
+    .menuItemCards{
+        display: grid; 
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: auto;
+        width: 100%; /* Make sure the grid is the full width of its container */
+    }
 
 `
 

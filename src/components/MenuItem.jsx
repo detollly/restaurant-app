@@ -51,7 +51,7 @@ const Product = styled.div`
     border: 1px solid #ddd;
     border-radius: 10px;
     overflow: hidden;
-    width: 60%;
+    width: 90%;
     margin: 10px;
     text-align: center;
     background: #fff;
