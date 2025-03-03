@@ -68,15 +68,17 @@ const Cart = ({ getItemDetails, quantities, removeItem }) => {
 export default Cart;
 
 const CartCSS = styled.div`
-    position: fixed;
-    right: 0;
-    top: 0;
-    width: 300px;
-    height: 100vh;
+    
+    box-sizing: border-box;
+
+    border: 1px purple solid; /* debugging */
+
+    width: 100%;
+    height: 100%;
+    
     background-color: #f8f9fa;
     padding: 20px;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-    overflow-y: auto;
 
     .cart-header {
         font-size: 1.5em;

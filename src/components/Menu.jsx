@@ -48,6 +48,7 @@ const Menu = ({addItem, removeItem, quantities}) => {
 
                 </div>
 
+                
                 <div className="menuItemCards">
                     {filterItems().map(object => (
                         <MenuItem {...object}
@@ -79,7 +80,12 @@ const categories = ['all', 'mains', 'vegetarian', 'sides', 'drinks', 'dessert'];
 /* Do styling here */
 /* Could sort into a grid, or a flexbox */
 const MenuCSS = styled.div `
+
+    box-sizing: border-box;
     
+    width: 100%; 
+    height: 100%; 
+
     display: grid;
     grid-template-columns: 75% 1fr;
     grid-template-areas: 'menu cart';
@@ -89,25 +95,32 @@ const MenuCSS = styled.div `
         display: flex;
         flex-direction: column;
         align-items: center;
-        justify-content: center;
+        justify-content: start; /* Changed to start to align items to top */
+        height: 100%; /* Ensure menu section takes full available height */
+        padding-bottom: 20px; /* Added some padding to prevent content being hidden by scroll */
+        overflow-y: auto;
     }
 
     .cartSection {
         grid-area: cart;
+        width: 100%;
+        height: 100%; /* Ensure cart section takes full available height */
+        overflow-y: auto;
     }
 
     .menuCategorySection {
         width: 50%; 
         display: flex;
         justify-content: space-evenly;
+        margin-bottom: 20px;
     }
 
     .menuItemCards{
         display: grid; 
-        grid-template-columns: 50% 50%;
+        grid-template-columns: repeat(2, 1fr);
         grid-template-rows: auto;
+        width: 100%; /* Make sure the grid is the full width of its container */
     }
-
 
 `
 

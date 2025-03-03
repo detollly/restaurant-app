@@ -19,5 +19,8 @@ const AppCSS = styled.div `
 
   border: solid purple 1px; /* Debugging */
 
+  //width: 100vh;
+  height: 100vh; 
+
 
 `

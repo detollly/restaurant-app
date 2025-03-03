@@ -16,7 +16,7 @@ export default function Banner()
         <BannerCSS>
 
             <div id='logo-section'>
-                
+
             </div>
 
             <div id='nav-section'>
@@ -30,7 +30,7 @@ export default function Banner()
 const BannerCSS = styled.div `
 
     width: 100%;
-    height: 15%;
+    height: 100%;
 
     box-sizing: border-box;
     border: 1px solid purple; /* for debugging */
