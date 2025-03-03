@@ -1,19 +1,23 @@
 import MyRoutes from './components/routing/MyRoutes';
 import MenuItem from "./components/MenuItem"
-import Menu from './components/Menu'; 
-import OrderPage from "./components/pages/OrderPage";
+import styled from 'styled-components'
+
 
 function App() {
   return (
-    <>
-    <MyRoutes/>
-      {/* <MenuItem imgSrc="" altText="text" productName="burger" price="10.00"/>
-      <MenuItem imgSrc="" altText="text" productName="burger" price="10.00"/>
-      <MenuItem imgSrc="" altText="text" productName="burger" price="10.00"/>
-      <>Hello, world!</> */}
-
-    </>
+    <AppCSS>
+      <MyRoutes/>
+    </AppCSS>
   );
 }
 
 export default App;
+
+const AppCSS = styled.div `
+
+  box-sizing: border-box;
+
+  border: solid purple 1px; /* Debugging */
+
+
+`
