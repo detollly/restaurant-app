@@ -34,16 +34,17 @@ const Menu = ({addItem, removeItem, quantities}) => {
 
     return(
         <MenuCSS>
-            <h2> Menu Items </h2>  
-            
-            <div>
-                <button onClick={() => setCategory('all')}>All</button>  {/* Category Buttons */}
-                <button onClick={() => setCategory('mains')}>Mains</button>  {/* Category Buttons */}
-                <button onClick={() => setCategory('vegetarian')}>Vegetarian</button>  {/* Category Buttons */}
-                <button onClick={() => setCategory('sides')}>Sides</button>  {/* Category Buttons */}
-                <button onClick={() => setCategory('drinks')}>Drinks</button>  {/* Category Buttons */}
-                <button onClick={() => setCategory('dessert')}>Dessert</button>  {/* Category Buttons */}
+            <h1>Menu</h1>
+
+            <div className="menuCategorySection">
+
+                {/* Category Buttons */}
+                {categories.map(category => (
+                    <button onClick={() => setCategory(category)}>{category}</button>
+                ))}
+
             </div>
+
             <div className="menuItemCards">
                 {filterItems().map(object => (
                     <MenuItem {...object}
@@ -63,9 +64,18 @@ const Menu = ({addItem, removeItem, quantities}) => {
 export default Menu
 
 
+const categories = ['all', 'mains', 'vegetarian', 'sides', 'drinks', 'dessert'];
+
+
 /* Do styling here */
 /* Could sort into a grid, or a flexbox */
 const MenuCSS = styled.div `
+
+    .menuCategorySection {
+        width: 50%; 
+        display: flex;
+        justify-content: space-evenly;
+    }
 
     .menuItemCards{
         display: grid; 
