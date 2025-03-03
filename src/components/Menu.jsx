@@ -34,28 +34,37 @@ const Menu = ({addItem, removeItem, quantities}) => {
 
     return(
         <MenuCSS>
-            <h1>Menu</h1>
 
-            <div className="menuCategorySection">
+            <div className="menuSection"> 
 
-                {/* Category Buttons */}
-                {categories.map(category => (
-                    <button onClick={() => setCategory(category)}>{category}</button>
-                ))}
+                <h1>Menu</h1>
+
+                <div className="menuCategorySection">
+
+                    {/* Category Buttons */}
+                    {categories.map(category => (
+                        <button onClick={() => setCategory(category)}>{category}</button>
+                    ))}
+
+                </div>
+
+                <div className="menuItemCards">
+                    {filterItems().map(object => (
+                        <MenuItem {...object}
+                            addItem={() => { addItem(object.id) }}
+                            removeItem={() => { removeItem(object.id) }}
+                            getItemQuantity={ quantities[`${object.id}`] }
+                        />
+                    ))}  {/* Updated the items display */}
+                </div>
 
             </div>
 
-            <div className="menuItemCards">
-                {filterItems().map(object => (
-                    <MenuItem {...object}
-                        addItem={() => { addItem(object.id) }}
-                        removeItem={() => { removeItem(object.id) }}
-                        getItemQuantity={ quantities[`${object.id}`] }
-                    />
-                ))}  {/* Updated the items display */}
-            </div>
+            <div className="cartSection">
 
-            <Cart menuList={menuList} getItemDetails={getItemDetails} quantities={quantities} removeItem={removeItem} />
+                <Cart menuList={menuList} getItemDetails={getItemDetails} quantities={quantities} removeItem={removeItem} />
+
+            </div>
             
         </MenuCSS>
     )
@@ -70,6 +79,22 @@ const categories = ['all', 'mains', 'vegetarian', 'sides', 'drinks', 'dessert'];
 /* Do styling here */
 /* Could sort into a grid, or a flexbox */
 const MenuCSS = styled.div `
+    
+    display: grid;
+    grid-template-columns: 75% 1fr;
+    grid-template-areas: 'menu cart';
+
+    .menuSection {
+        grid-area: menu;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .cartSection {
+        grid-area: cart;
+    }
 
     .menuCategorySection {
         width: 50%; 
