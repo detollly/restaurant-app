@@ -66,7 +66,7 @@ const Product = styled.div`
     img {
         width: 100%;
         max-width: 200px;
-        height: auto;
+        height: 150px;
         margin: 20px auto;
     }
 
