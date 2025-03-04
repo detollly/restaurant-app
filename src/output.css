@@ -1,4 +1,33 @@
 /*! tailwindcss v4.0.9 | MIT License | https://tailwindcss.com */
+
+/* Global color variables */
+
+:root {
+  --color-background: #F7F7F7;
+  --color-primary: #FFB22C;
+  --color-secondary: #854836;
+  --color-contrast: #000000;
+}
+
+.bg-background {
+  background-color: var(--color-background);
+}
+
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.text-contrast {
+  color: var(--color-contrast);
+}
+
+
+
+
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
