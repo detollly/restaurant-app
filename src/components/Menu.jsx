@@ -4,10 +4,10 @@ import MenuItem from "./MenuItem";
 import Cart from "./Cart";
 
 
-const Menu = ({addItem, removeItem, quantities}) => {
-
+const Menu = () => {
     const [menuList, setMenuList] = useState([]);
     const [category, setCategory] = useState('all');
+    const [quantities, setQuantities] = useState({});
 
     async function getMenuItems() {
         fetch('https://djevelyn.helioho.st/menu/items/all?key=123')
@@ -16,60 +16,88 @@ const Menu = ({addItem, removeItem, quantities}) => {
     }
 
     useEffect(() => {
-        getMenuItems(); 
+      getMenuItems(); 
     }, []);
 
     function getItemDetails(givenId) {
-        for (let i = 0; i < menuList.length; ++i) {
-            const currentItem = menuList[i];
-            if (currentItem.id === givenId)
-                return currentItem; 
-        }
-        return { };
+      for (let i = 0; i < menuList.length; ++i) {
+        const currentItem = menuList[i];
+        if (currentItem.id === givenId)
+          return currentItem; 
+      }
+      return { };
     }
 
-    const filterItems = () => {
-        return category === 'all' ? menuList : menuList.filter(item => item.category === category);
+    const addItem = (id) => {
+      setQuantities(prev => ({
+        ...prev,
+        [id]: (prev[id] || 0) + 1
+      }));
     };
 
-    return(
-        <MenuCSS>
+    const removeItem = (id) => {
+      setQuantities(prev => {
+        if ((prev[id] || 0) <= 0) return prev;
+        return {
+          ...prev,
+          [id]: prev[id] - 1
+        };
+      });
+    };
 
-            <div className="menuSection"> 
+    const filterItems = () => {
+      return category === 'all' ? menuList : menuList.filter(item => item.category === category);
+    };
 
-                <h1>Menu</h1>
+    return (
+      <div className="grid grid-cols-4 h-screen">
+        <div className="col-span-3 p-6 overflow-y-auto">
+          <h1 className="text-3xl font-bold text-center text-natural-dark mb-8">
+            <i className="mdi mdi-leaf-maple mr-2"></i>
+            Menu
+            <i className="mdi mdi-atom ml-2"></i>
+          </h1>
 
-                <div className="menuCategorySection">
+          <div className="flex justify-center mb-8">
+            {categories.map(cat => (
+              <button 
+                key={cat} 
+                onClick={() => setCategory(cat)}
+                className={`px-4 py-2 mx-1 rounded-full capitalize transition-all ${
+                  category === cat 
+                    ? 'bg-natural-dark font-semibold text-green-300' 
+                    : 'bg-white text-gray-600 hover:bg-natural-light'
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {filterItems().map(item => (
+              <MenuItem 
+                key={item.id} 
+                {...item}
+                addItem={() => addItem(item.id)}
+                removeItem={() => removeItem(item.id)}
+                getItemQuantity={quantities[item.id] || 0}
+              />
+            ))}
+          </div>
+        </div>
 
-                    {/* Category Buttons */}
-                    {categories.map(category => (
-                        <button onClick={() => setCategory(category)}>{category}</button>
-                    ))}
-
-                </div>
-
-                
-                <div className="menuItemCards">
-                    {filterItems().map(object => (
-                        <MenuItem {...object}
-                            addItem={() => { addItem(object.id) }}
-                            removeItem={() => { removeItem(object.id) }}
-                            getItemQuantity={ quantities[`${object.id}`] }
-                        />
-                    ))}  {/* Updated the items display */}
-                </div>
-
-            </div>
-
-            <div className="cartSection">
-
-                <Cart menuList={menuList} getItemDetails={getItemDetails} quantities={quantities} removeItem={removeItem} />
-
-            </div>
-            
-        </MenuCSS>
-    )
-} 
+        <div className="col-span-1 bg-gray-50 p-4">
+          <Cart 
+            menuList={menuList} 
+            getItemDetails={getItemDetails} 
+            quantities={quantities} 
+            removeItem={removeItem} 
+          />
+        </div>
+      </div>
+    );
+  };
 
 export default Menu
 
@@ -77,61 +105,22 @@ export default Menu
 const categories = ['all', 'mains', 'vegetarian', 'sides', 'drinks', 'dessert'];
 
 
-/* Do styling here */
-/* Could sort into a grid, or a flexbox */
-const MenuCSS = styled.div `
-
-    box-sizing: border-box;
-    
-    width: 100%; 
-    height: 100%; 
-
-    display: grid;
-    grid-template-columns: 75% 1fr;
-    grid-template-areas: 'menu cart';
-
-    .menuSection {
-        grid-area: menu;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: start; /* Changed to start to align items to top */
-        height: 100%; /* Ensure menu section takes full available height */
-        padding-bottom: 20px; /* Added some padding to prevent content being hidden by scroll */
-        overflow-y: auto;
-    }
-
-    .cartSection {
-        grid-area: cart;
-        width: 100%;
-        height: 100%; /* Ensure cart section takes full available height */
-        overflow-y: auto;
-    }
-
-    .menuCategorySection {
-        width: 50%; 
-        display: flex;
-        justify-content: space-evenly;
-        margin-bottom: 20px;
-    }
-
-    .menuItemCards{
-        display: grid; 
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: auto;
-        width: 100%; /* Make sure the grid is the full width of its container */
-    }
-
-`
-
 /* List to get if you cannot connect to online database */
 function getOfflineList()
 {
-    const backupList = [
-        {id: 1, name: 'Burger', description:'Cheese Burger', price: 10.00, category: 'mains', img: ''}
-    ];
+       /*
+    async function getMenuItems() {
+      // Simulating API fetch with sample data
+      const sampleData = [
+        { id: '1', name: 'Organic Quinoa Bowl', price: 12.99, description: 'Fresh quinoa with seasonal vegetables and our signature dressing', category: 'mains', image: 'https://source.unsplash.com/random/300x200/?quinoa' },
+        { id: '2', name: 'Plant-Based Burger', price: 14.50, description: 'Lab-crafted plant protein with modern cooking techniques', category: 'vegetarian', image: 'https://source.unsplash.com/random/300x200/?veggie-burger' },
+        { id: '3', name: 'Molecular Dessert', price: 10.99, description: 'Sweet garden berries transformed with molecular gastronomy', category: 'dessert', image: 'https://source.unsplash.com/random/300x200/?molecular-dessert' },
+        { id: '4', name: 'Fermented Tea Kombucha', price: 5.99, description: 'Ancient fermentation meets modern flavor profiles', category: 'drinks', image: 'https://source.unsplash.com/random/300x200/?kombucha' },
+      ];
+      setMenuList(sampleData);
+    }
+    */
 
-    return backupList;
 }
 
 
