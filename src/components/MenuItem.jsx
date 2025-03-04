@@ -18,7 +18,7 @@ const MenuItem = ({ id, name, description, price, category, image,
                 <Link to={`/item/${id}`}>
                     <img src={image} alt={description} />
                     <h2>{name}</h2>
-                    <p className="price">${price}</p>
+                    <p className="price">£{price}</p>
                     <p className="quantity">Qty: {getItemQuantity}</p>
                 </Link>
                 
