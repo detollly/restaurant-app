@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import style, { styled } from 'styled-components'
+import styled from 'styled-components';
 
 function NavBar () {
     return (
@@ -17,18 +17,4 @@ function NavBar () {
 
 export default NavBar;
 
-const NavBarCSS = styled.div `
-
-    ul {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        align-items: center;
-    }
-
-    li {
-        list-style: none;
-    }
-    
-
-`
+const NavBarCSS = styled.div ``

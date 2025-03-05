@@ -165,11 +165,11 @@ function getSelectedItemsFromQuantities(quantities)
 /* Adjust styles here */
 const OrderPageCSS = styled.div`
 
+    position: absolute;
     box-sizing: border-box;
-
+    margin-top: 2rem;
     width: 100%;
-    height: 100%; 
-
+    height: 100%;
     overflow: hidden;
     
 `

@@ -33,7 +33,7 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
 
     return (
       <div className="grid grid-cols-4 h-screen mb-20">
-        <div className="col-span-3 p-6 overflow-y-auto">
+        <div className="col-span-3 p-6">   {/* Removed scrollbar on menu.jsx */}        
           <h1 className="text-3xl font-bold text-center text-natural-dark mb-8">
             <i className="mdi mdi-leaf-maple mr-2"></i>
             Menu
