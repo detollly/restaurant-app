@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CartItem from './CartItem';
 
-const Cart = ({ getItemDetails, quantities, removeItem }) => {
+const Cart = ({ getItemDetails, quantities, removeItem, menuList }) => {
     const [total, setTotal] = useState(0);
     const [selectedItems, setSelectedItems] = useState([]);
 
     // Update the total whenever quantities change
     useEffect(() => {
         setTotal(getTotal());
-    }, [quantities]);
+    }, [quantities, menuList]);
 
     // Calculate the total price of items in the cart
     const getTotal = () => {
@@ -35,7 +35,7 @@ const Cart = ({ getItemDetails, quantities, removeItem }) => {
     return (
         <CartCSS>
             <div className='cart-header'>
-                Total: £{total.toFixed(2)}
+                {!(total >= 0)? '' : 'Total: £' + total.toFixed(2)}
             </div>
 
             <div className='cart-items'>
