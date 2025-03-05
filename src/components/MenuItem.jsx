@@ -1,140 +1,70 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const MenuItem = ({ id, name, description, price, category, image, 
-    addItem, removeItem, getItemQuantity }) => {
-    
+export default function MenuItem({ id, name, description, price, category, image, addItem, removeItem, getItemQuantity = 0 })
+{
     const [showDescription, setShowDescription] = useState(false);
     
     const toggleDescription = (e) => {
-        e.preventDefault(); // Prevent Link navigation when clicking toggle
-        setShowDescription(!showDescription);
+      e.preventDefault();
+      setShowDescription(!showDescription);
     };
     
     return (
-        <Product>
-            <div className="product-content">
-                <Link to={`/item/${id}`}>
-                    <img src={image} alt={description} />
-                    <h2>{name}</h2>
-                    <p className="price">£{price}</p>
-                    <p className="quantity">Qty: {getItemQuantity}</p>
-                </Link>
-                
-                <button 
-                    onClick={toggleDescription} 
-                    className="toggle-description"
-                >
-                    {showDescription ? "Hide Details" : "Show Details"}
-                </button>
-                
-                {showDescription && (
-                    <div className="description-container">
-                        <p className="description">{description}</p>
-                    </div>
-                )}
-                
-                <button onClick={addItem} className="add-to-cart">Add to Cart</button>
+      <div className="relative flex flex-col rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-1 w-full h-[420px] bg-white" 
+           style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+        <div className="flex flex-col h-full bg-gradient-to-t from-black/80 via-black/50 to-transparent p-4">
+          <Link to={`/item/${id}`} className="flex-1 flex flex-col text-white">
+            <div className="mt-auto">
+              <span className="inline-block bg-yellow-500 text-black text-xs font-semibold px-2 py-1 rounded-full mb-2">
+                {category}
+              </span>
+              <h2 className="text-xl font-bold mb-1">{name}</h2>
+              <p className="text-lg font-medium">£{price}</p>
+              <p className="text-sm opacity-90">Qty: {getItemQuantity}</p>
             </div>
-        </Product>
+          </Link>
+          
+          <button 
+            onClick={toggleDescription} 
+            className="mt-2 self-start px-3 py-1 text-xs border border-white/50 text-white rounded-full hover:bg-white/10 transition-colors"
+          >
+            {showDescription ? "Hide Details" : "Show Details"}
+          </button>
+          
+          {showDescription && (
+            <div className="mt-2 p-3 bg-white/90 backdrop-blur-sm rounded-md text-black">
+              <p className="text-sm italic text-left">{description}</p>
+            </div>
+          )}
+          
+          <div className="mt-3">
+            {getItemQuantity > 0 ? (
+              <div className="flex items-center justify-center space-x-3">
+                <button 
+                  onClick={removeItem} 
+                  className="w-10 h-10 flex items-center justify-center bg-white text-blue-600 rounded-full hover:bg-blue-100 transition-colors"
+                >
+                  <span className="text-xl">-</span>
+                </button>
+                <span className="text-white font-semibold">{getItemQuantity}</span>
+                <button 
+                  onClick={addItem} 
+                  className="w-10 h-10 flex items-center justify-center bg-white text-blue-600 rounded-full hover:bg-blue-100 transition-colors"
+                >
+                  <span className="text-xl">+</span>
+                </button>
+              </div>
+            ) : (
+              <button 
+                onClick={addItem} 
+                className="w-full py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium"
+              >
+                Add to Cart
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
     );
-};
-
-export default MenuItem;
-
-/* Styling moved to bottom to reduce scroll time */
-const Product = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: 1px solid #ddd;
-    border-radius: 10px;
-    overflow: hidden;
-    width: 90%;
-    margin: 10px;
-    text-align: center;
-    background: #fff;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-
-    .product-content {
-        display: flex;
-        flex-direction: column;
-    }
-
-    img {
-        width: 100%;
-        max-width: 200px;
-        height: 150px;
-        margin: 20px auto;
-    }
-
-    h2 {
-        margin: 0 0 10px;
-        color: #333;
-    }
-
-    p {
-        color: #777;
-        margin-bottom: 10px;
-    }
-
-    .price {
-        font-weight: bold;
-        color: #333;
-    }
-
-    .description-container {
-        padding: 0 15px 10px;
-        margin-bottom: 10px;
-        background-color: #f8f9fa;
-        border-radius: 5px;
-    }
-
-    .description {
-        font-style: italic;
-        text-align: left;
-        line-height: 1.4;
-    }
-
-    .toggle-description {
-        background-color: transparent;
-        color: #007bff;
-        border: 1px solid #007bff;
-        border-radius: 20px;
-        padding: 5px 10px;
-        margin: 5px auto 15px;
-        cursor: pointer;
-        font-size: 0.8rem;
-        width: 120px;
-    }
-
-    .toggle-description:hover {
-        background-color: #f0f8ff;
-    }
-
-    .add-to-cart {
-        background-color: #007bff;
-        color: white;
-        padding: 15px 20px;
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: background-color 0.3s;
-        margin-top: 5px;
-    }
-
-    .add-to-cart:hover {
-        background-color: #0056b3;
-    }
-
-    &:hover {
-        transform: translateY(-5px);
-    }
-
-    /* for Link - to remove link underline */
-    a {
-        text-decoration: none;
-    }
-`;
+  };
