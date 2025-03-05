@@ -1,13 +1,11 @@
 import React , {useEffect, useState} from "react";
-import styled from 'styled-components';
 import MenuItem from "./MenuItem";
 import Cart from "./Cart";
 
 
-const Menu = () => {
+const Menu = ( {addItem, removeItem, quantities} ) => {
     const [menuList, setMenuList] = useState([]);
     const [category, setCategory] = useState('all');
-    const [quantities, setQuantities] = useState({});
 
     async function getMenuItems() {
         fetch('https://djevelyn.helioho.st/menu/items/all?key=123')
@@ -17,6 +15,7 @@ const Menu = () => {
 
     useEffect(() => {
       getMenuItems(); 
+      console.log(`Quantities: ` + quantities); 
     }, []);
 
     function getItemDetails(givenId) {
@@ -27,23 +26,6 @@ const Menu = () => {
       }
       return { };
     }
-
-    const addItem = (id) => {
-      setQuantities(prev => ({
-        ...prev,
-        [id]: (prev[id] || 0) + 1
-      }));
-    };
-
-    const removeItem = (id) => {
-      setQuantities(prev => {
-        if ((prev[id] || 0) <= 0) return prev;
-        return {
-          ...prev,
-          [id]: prev[id] - 1
-        };
-      });
-    };
 
     const filterItems = () => {
       return category === 'all' ? menuList : menuList.filter(item => item.category === category);
