@@ -1,5 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
+import { Carousel } from 'react-bootstrap';
 
 const HomePage = () => {
 
@@ -13,9 +14,49 @@ const HomePage = () => {
                 <p>[placeholder for video]</p>
                 <p>Explore our innovative and natural menu</p>
                 <p>[placeholder for explore menu button]</p>
-            </div>        
+            </div>
+            <div className="banner">
+
+                {/* Bootstrap Carousel component. Optional !!! */}
+
+                <Carousel>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="../../images/image1.jpg"
+                            alt="First slide"
+                        />
+                        <Carousel.Caption>
+                            <h3>First Slide Label</h3>
+                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="../../images/image2.jpg"
+                            alt="Second slide"
+                        />
+                        <Carousel.Caption>
+                            <h3>Second Slide Label</h3>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                    <Carousel.Item>
+                        <img
+                            className="d-block w-100"
+                            src="../../images/image3.jpg"
+                            alt="Third slide"
+                        />
+                        <Carousel.Caption>
+                            <h3>Third Slide Label</h3>
+                            <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+                        </Carousel.Caption>
+                    </Carousel.Item>
+                </Carousel>    
+            </div>      
         </HomePageCSS>
-        // here comes a button to explore menu
+
         )
 } 
 
