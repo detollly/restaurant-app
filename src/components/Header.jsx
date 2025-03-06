@@ -5,7 +5,7 @@ function NavBar() {
     return (
         <NavBarCSS>
             <div className="logo-section">
-                <h1>Logo</h1>
+                <img src="../images/logo.png" alt="logo" />
             </div>
             <nav>
                 <ul>
@@ -34,6 +34,11 @@ const NavBarCSS = styled.div`
 
     .logo-section {
         flex: 1;
+    }
+
+    .logo-section img {
+        width: 50px;
+        height: auto;
     }
 
     nav {
