@@ -43,7 +43,8 @@ const NavBarCSS = styled.div`
     left: 0;
     width: 100%;
     height: 6rem;
-    background-color: #edf0f0;
+    background-color: #73A19E;
+    color: #F2F9F9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     z-index: 1000; /* Ensure navbar is above all other content */
     
@@ -134,8 +135,7 @@ const NavBarCSS = styled.div`
     
     a {
         text-decoration: none;
-        color: #000;
-        font-weight: 700;
+        font-weight: 500;
         font-size: 1.1rem;
     }
     
