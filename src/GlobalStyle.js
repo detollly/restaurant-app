@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     min-height: 100%;
-    background-color: #FFB433;
+    background-color: #FFFFFF;
     box-sizing: border-box;
     font-family: 'Source Sans Pro', sans-serif; /* Default font */
   }
