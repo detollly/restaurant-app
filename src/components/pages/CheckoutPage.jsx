@@ -103,8 +103,8 @@ function getCartItems()
 
 const CheckoutPageCSS = styled.div `
 
-    box-sizing: border-box;
-
+    postion: absolute;
+    margin: 10rem 3rem;
     display: grid;
     grid-template-columns: 50% 1fr;
     grid-template-areas: 'a b';
