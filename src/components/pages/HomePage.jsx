@@ -27,7 +27,5 @@ const HomePageCSS = styled.div`
 
 .body {
     margin: 10rem 3rem;
-    background-color: transparent;
     }
-
 `;
