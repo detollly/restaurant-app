@@ -141,10 +141,11 @@ export default function CheckoutPage() {
                             <button id='amend-order-button'> Amend Order </button> 
                         </Link>
                         {/* Only show Order button if the order has been finalized */}
-                        {orderFinalized && (
+                        {orderFinalized ? (
                             <button id='order-button' onClick={handleOrder}> Order </button>
+                        ) : (
+                            <button id='finalise-order-button' onClick={handleShowFinaliseOrder}> Finalise Order </button>
                         )}
-                        <button id='finalise-order-button' onClick={handleShowFinaliseOrder}> Finalise Order </button>
                     </div>
                 </div>
             </div>
