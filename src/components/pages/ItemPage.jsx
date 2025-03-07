@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useParams, useNavigate } from 'react-router-dom';
 
-/* This page will display the full details of a MenuItem when clicked */
 export default function ItemPage() {
     const { itemId } = useParams();
     const navigate = useNavigate();
@@ -47,6 +46,27 @@ export default function ItemPage() {
     function handleGoBack() {
         navigate(-1); // Go back to previous page
     }
+
+    // Function to handle adding the item to the cart
+    const handleAddToOrder = () => {
+        // Retrieve the current cart from localStorage
+        const cart = JSON.parse(localStorage.getItem('cart')) || {};
+
+        // Check if the item already exists in the cart
+        if (cart[item.id]) {
+            // If it exists, increment the quantity
+            cart[item.id] += 1;
+        } else {
+            // If it doesn't exist, add it to the cart with a quantity of 1
+            cart[item.id] = 1;
+        }
+
+        // Save the updated cart back to localStorage
+        localStorage.setItem('cart', JSON.stringify(cart));
+
+        // Optional: Notify the user that the item has been added
+        alert(`${item.name} has been added to your order!`);
+    };
 
     // Loading state
     if (loading) {
@@ -116,7 +136,7 @@ export default function ItemPage() {
                         </DescriptionSection>
                         
                         <ActionButtons>
-                            <AddToOrderButton>
+                            <AddToOrderButton onClick={handleAddToOrder}>
                                 Add to Order
                             </AddToOrderButton>
                             <FavoriteButton>
@@ -353,31 +373,3 @@ const BackButton = styled.button`
         background-color: #80AAA4;
     }
 `;
-
-// Notes
-
-/* [1] - Dylan - useParams
-
-useParams is a hook provided by 'react-router-dom'
-From it we can get the params that exist in the url.
-
-You can give two types of parameters in a url
-
-1)
-'/info/:id' -> This defines an endpoint at page. 'id' will be available to the 'info' page as a parameter.
-
-For example:
-
-'www.website.com/info/3' -> This will take you to the info page of 'website', with access to '3' as a parameter.
-You can commonly use this to change the contents of a page based on a page number. 
-
-2)
-Is a query parameter, i.e.
-
-'www.website.com/profile?username=JohnDoe'
-
-This information can also be accessed - in this case the value of 'username' can be pulled and found to be 'JohnDoe'
-You could use this for specific purposes, like looking up and displaying JohnDoe's data from a database. 
-
-*/
-
