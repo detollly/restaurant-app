@@ -35,7 +35,7 @@ export default function CheckoutPage() {
     function calculateTotal(givenObjectList) {
         let total = 0;
         Object.entries(cartItems).forEach(([id, qty]) => {
-            const item = givenObjectList.find(item => item.id === Number(id));
+            const item = itemDetails[Number(id)];
             if (item) {
                 total += item.price * qty;
             }
