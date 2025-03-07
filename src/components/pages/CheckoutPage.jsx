@@ -3,21 +3,29 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export default function CheckoutPage() {
-    const [itemDetails, setItemDetails] = useState([1]);
+    const [itemDetails, setItemDetails] = useState([]);
     const [total, setTotal] = useState(0);
-
-    const items = getCartItems(); /* retrieved from localStorage */
+    const [cartItems, setCartItems] = useState(getCartItems());
+    const [showFinaliseOrderModal, setShowFinaliseOrderModal] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState('drinks'); // Default category
+    const [missingItems, setMissingItems] = useState([]);
+    const [orderFinalized, setOrderFinalized] = useState(false); // New state to track if order is finalized
 
     useEffect(() => {
-        /* get item details */ 
         getItemDetails(); 
     }, []); 
+
+    // Add this effect to recalculate the total whenever cartItems changes
+    useEffect(() => {
+        if (itemDetails.length > 0) {
+            calculateTotal();
+        }
+    }, [cartItems, itemDetails]);
 
     async function getItemDetails() {
         const response = await fetch('https://djevelyn.helioho.st/menu/items/all?key=123');
         const result = await response.json(); 
         setupList(result); 
-        calculateTotal(result); 
     }
 
     function setupList(givenObjectList) {
@@ -30,10 +38,10 @@ export default function CheckoutPage() {
         console.log('Set item details'); 
     }
 
-    function calculateTotal(givenObjectList) {
+    function calculateTotal() {
         let total = 0;
-        Object.entries(items).forEach(([id, qty]) => {
-            const item = givenObjectList.find(item => item.id === Number(id));
+        Object.entries(cartItems).forEach(([id, qty]) => {
+            const item = itemDetails[Number(id)];
             if (item) {
                 total += item.price * qty;
             }
@@ -41,10 +49,51 @@ export default function CheckoutPage() {
         setTotal(total);
     }
 
-    // Placeholder function for the "Order" button
+    const handleIncreaseQuantity = (itemId) => {
+        const updatedCart = { ...cartItems };
+        updatedCart[itemId] = (updatedCart[itemId] || 0) + 1;
+        setCartItems(updatedCart);
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+    };
+
+    const handleDecreaseQuantity = (itemId) => {
+        const updatedCart = { ...cartItems };
+        if (updatedCart[itemId] > 1) {
+            updatedCart[itemId] -= 1;
+        } else {
+            delete updatedCart[itemId]; // Remove the item if quantity reaches 0
+        }
+        setCartItems(updatedCart);
+        localStorage.setItem('cart', JSON.stringify(updatedCart));
+    };
+
     const handleOrder = () => {
         console.log("Order button clicked");
         // Add functionality here if needed
+    };
+
+    const handleShowFinaliseOrder = () => {
+        // Fetch missing items for the selected category
+        const missingItemsList = Object.values(itemDetails).filter(item => item.category === selectedCategory && !cartItems[item.id]);
+        setMissingItems(missingItemsList);
+        setShowFinaliseOrderModal(true);
+    };
+
+    const handleAddMissingItem = (itemId) => {
+        handleIncreaseQuantity(itemId); // Add the item to the cart
+    };
+
+    const handleFinishOrder = () => {
+        setShowFinaliseOrderModal(false); // Close the modal
+        setOrderFinalized(true); // Set order as finalized to show the Order button
+        console.log("Order finalised");
+        // Add functionality to finalise the order here
+    };
+
+    const handleCategoryChange = (e) => {
+        setSelectedCategory(e.target.value); // Update the selected category
+        const missingItemsList = Object.values(itemDetails).filter(item => item.category === e.target.value && !cartItems[item.id]);
+        setMissingItems(missingItemsList);
     };
 
     return (
@@ -59,7 +108,7 @@ export default function CheckoutPage() {
                         <h3>Order Details</h3>
                         <div id='order-summary'>
                             <ul>
-                                {Object.entries(items).map(([id, qty]) => {
+                                {Object.entries(cartItems).map(([id, qty]) => {
                                     const itemId = Number.parseInt(id);
                                     let details = itemDetails[itemId];
                                     let name = details == undefined ? 'loading' : details.name;
@@ -68,7 +117,14 @@ export default function CheckoutPage() {
                                     return (
                                         <li key={id}>
                                             <div className='item-name'> {name} </div>
-                                            <div className='item-quantity'> qty: {qty} £{(price * qty).toFixed(2)} </div>
+                                            <div className='item-controls'>
+                                                <div className='quantity-controls'>
+                                                    <button className='quantity-button' onClick={() => handleDecreaseQuantity(itemId)}>-</button>
+                                                    <span> {qty} </span>
+                                                    <button className='quantity-button' onClick={() => handleIncreaseQuantity(itemId)}>+</button>
+                                                </div>
+                                                <div className='item-price'>£{(price * qty).toFixed(2)}</div>
+                                            </div>
                                         </li>
                                     );
                                 })}
@@ -84,10 +140,43 @@ export default function CheckoutPage() {
                         <Link to='/order'> 
                             <button id='amend-order-button'> Amend Order </button> 
                         </Link>
-                        <button id='order-button' onClick={handleOrder}> Order </button>
+                        {/* Only show Order button if the order has been finalized */}
+                        {orderFinalized ? (
+                            <button id='order-button' onClick={handleOrder}> Order </button>
+                        ) : (
+                            <button id='finalise-order-button' onClick={handleShowFinaliseOrder}> Finalise Order </button>
+                        )}
                     </div>
                 </div>
             </div>
+
+            {/* Modal for finalising order */}
+            {showFinaliseOrderModal && (
+                <ModalOverlay>
+                    <ModalContent>
+                        <h3>Finalise Order</h3>
+                        <div className='category-dropdown'>
+                            <label htmlFor='category'>Select Category:</label>
+                            <select id='category' value={selectedCategory} onChange={handleCategoryChange}>
+                                <option value='drinks'>Drinks</option>
+                                <option value='sides'>Sides</option>
+                                <option value='dessert'>Desserts</option>
+                            </select>
+                        </div>
+                        <ul>
+                            {missingItems.map(item => (
+                                <li key={item.id}>
+                                    <div className='item-name'>{item.name}</div>
+                                    <div className='item-price'>£{item.price.toFixed(2)}</div>
+                                    <button className='add-item-button' onClick={() => handleAddMissingItem(item.id)}>Add</button>
+                                </li>
+                            ))}
+                        </ul>
+                        <button className='finish-order-button' onClick={handleFinishOrder}>Finish Order</button>
+                        <button className='close-modal-button' onClick={() => setShowFinaliseOrderModal(false)}>Close</button>
+                    </ModalContent>
+                </ModalOverlay>
+            )}
         </CheckoutPageCSS>
     );
 } 
@@ -139,6 +228,7 @@ const CheckoutPageCSS = styled.div`
         li {
             display: flex;
             justify-content: space-between;
+            align-items: center;
             padding: 10px 0;
             border-bottom: 1px solid #eee;
         }
@@ -146,10 +236,40 @@ const CheckoutPageCSS = styled.div`
         .item-name {
             font-weight: bold;
             color: #333;
+            flex: 1;
         }
 
-        .item-quantity {
-            color: #666;
+        .item-controls {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .quantity-button {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+
+            &:hover {
+                background-color: #0056b3;
+            }
+        }
+
+        .item-price {
+            font-weight: bold;
+            color: #007bff;
+            min-width: 80px;
+            text-align: right;
         }
     }
 
@@ -177,7 +297,7 @@ const CheckoutPageCSS = styled.div`
         gap: 10px;
     }
 
-    #amend-order-button, #order-button {
+    #amend-order-button, #order-button, #finalise-order-button {
         padding: 10px 20px;
         background-color: #007bff;
         color: white;
@@ -197,6 +317,124 @@ const CheckoutPageCSS = styled.div`
 
         &:hover {
             background-color: #218838;
+        }
+    }
+
+    #finalise-order-button {
+        background-color: #ffc107;
+
+        &:hover {
+            background-color: #e0a800;
+        }
+    }
+`;
+
+const ModalOverlay = styled.div`
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+`;
+
+const ModalContent = styled.div`
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 400px;
+    max-width: 90%;
+
+    h3 {
+        font-size: 1.5em;
+        margin-bottom: 20px;
+        color: #333;
+    }
+
+    .category-dropdown {
+        margin-bottom: 20px;
+
+        label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+
+        select {
+            padding: 5px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+        }
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    li {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid #eee;
+    }
+
+    .item-name {
+        font-weight: bold;
+        color: #333;
+    }
+
+    .item-price {
+        color: #007bff;
+    }
+
+    .add-item-button {
+        padding: 5px 10px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: #218838;
+        }
+    }
+
+    .finish-order-button {
+        margin-top: 20px;
+        padding: 10px 20px;
+        background-color: #28a745;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: #218838;
+        }
+    }
+
+    .close-modal-button {
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #dc3545;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: #c82333;
         }
     }
 `;
