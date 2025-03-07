@@ -32,7 +32,8 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
     };
 
     return (
-      <div className="grid grid-cols-4 h-screen mb-20">
+      <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-4 md:grid-rows-1 h-screen mb-20">
+        
         <div className="col-span-3 p-6 overflow-y-auto">        
           <h1 className="text-3xl font-bold text-center text-natural-dark mb-8">
             <i className="mdi mdi-leaf-maple mr-2"></i>
@@ -40,7 +41,8 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
             <i className="mdi mdi-atom ml-2"></i>
           </h1>
 
-          <div className="flex justify-center mb-8">
+        <div class="flex justify-center">
+          <div className="flex overflow-x-auto md:overflow-x-hidden justify-start mb-8">
             {categories.map(cat => (
               <button 
                 key={cat} 
@@ -55,6 +57,7 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
               </button>
             ))}
           </div>
+        </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {filterItems().map(item => (
