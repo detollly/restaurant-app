@@ -41,7 +41,8 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
             <i className="mdi mdi-atom ml-2"></i>
           </h1>
 
-          <div className="flex justify-center mb-8">
+        <div class="flex justify-center">
+          <div className="flex overflow-x-auto md:overflow-x-hidden justify-start mb-8">
             {categories.map(cat => (
               <button 
                 key={cat} 
@@ -56,6 +57,7 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
               </button>
             ))}
           </div>
+        </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {filterItems().map(item => (
