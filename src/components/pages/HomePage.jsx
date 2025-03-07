@@ -26,7 +26,8 @@ export default HomePage
 const HomePageCSS = styled.div`
 
 .body {
-    margin: 5rem 3rem;
+    margin: 10rem 3rem;
+    background-color: transparent;
     }
 
 `;
