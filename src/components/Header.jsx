@@ -46,7 +46,7 @@ const NavBarCSS = styled.div`
     background-color: #73A19E;
     color: #F2F9F9;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensure navbar is above all other content */
+    z-index: 1000; /* Ensures navbar is above all other content */
     
     .navbar-container {
         width: 100%;
@@ -82,7 +82,7 @@ const NavBarCSS = styled.div`
         display: block;
         height: 3px;
         width: 100%;
-        background-color: #000;
+        background-color: #002d2c;
         border-radius: 3px;
         transition: all 0.3s ease;
         position: absolute;
@@ -136,7 +136,7 @@ const NavBarCSS = styled.div`
     a {
         text-decoration: none;
         font-weight: 500;
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
     
     /* Media query for smaller screens */
@@ -172,6 +172,10 @@ const NavBarCSS = styled.div`
         
         li {
             margin: 1.5rem 0;
+        }
+
+        a {
+        color: #002d2c;
         }
     }
 `;
