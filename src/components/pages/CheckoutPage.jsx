@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 export default function CheckoutPage() {
-    const [itemDetails, setItemDetails] = useState([1]);
+    const [itemDetails, setItemDetails] = useState([]);
     const [total, setTotal] = useState(0);
     const [cartItems, setCartItems] = useState(getCartItems());
     const [showFinaliseOrderModal, setShowFinaliseOrderModal] = useState(false);
@@ -15,11 +15,17 @@ export default function CheckoutPage() {
         getItemDetails(); 
     }, []); 
 
+    // Add this effect to recalculate the total whenever cartItems changes
+    useEffect(() => {
+        if (itemDetails.length > 0) {
+            calculateTotal();
+        }
+    }, [cartItems, itemDetails]);
+
     async function getItemDetails() {
         const response = await fetch('https://djevelyn.helioho.st/menu/items/all?key=123');
         const result = await response.json(); 
         setupList(result); 
-        calculateTotal(result); 
     }
 
     function setupList(givenObjectList) {
@@ -32,7 +38,7 @@ export default function CheckoutPage() {
         console.log('Set item details'); 
     }
 
-    function calculateTotal(givenObjectList) {
+    function calculateTotal() {
         let total = 0;
         Object.entries(cartItems).forEach(([id, qty]) => {
             const item = itemDetails[Number(id)];
@@ -48,7 +54,6 @@ export default function CheckoutPage() {
         updatedCart[itemId] = (updatedCart[itemId] || 0) + 1;
         setCartItems(updatedCart);
         localStorage.setItem('cart', JSON.stringify(updatedCart));
-        calculateTotal(itemDetails);
     };
 
     const handleDecreaseQuantity = (itemId) => {
@@ -60,7 +65,6 @@ export default function CheckoutPage() {
         }
         setCartItems(updatedCart);
         localStorage.setItem('cart', JSON.stringify(updatedCart));
-        calculateTotal(itemDetails);
     };
 
     const handleOrder = () => {
