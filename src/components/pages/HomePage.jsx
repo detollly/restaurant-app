@@ -201,28 +201,24 @@ const HomePageCSS = styled.div`
     font-weight: 300;
     letter-spacing: 0.1em;
     color: white;
-    background: rgba(
-      0,
-      0,
-      0,
-      0.4
-    ); // Changed from 0.2 to 0.4 for darker background
+    background: rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.3);
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    z-index: 1;
 
     &:before {
       content: "";
       position: absolute;
-      top: 100%;
+      bottom: 0;
       left: 0;
       width: 100%;
-      height: 100%;
-      background: #5e7269; // Solid color instead of rgba
-      transition: all 0.3s ease;
+      height: 0%;
+      background: #5e7269;
+      transition: height 0.3s ease;
       z-index: -1;
     }
 
@@ -232,7 +228,7 @@ const HomePageCSS = styled.div`
       box-shadow: 0 0 20px rgba(94, 114, 105, 0.6);
 
       &:before {
-        top: 0;
+        height: 100%;
       }
     }
   }
