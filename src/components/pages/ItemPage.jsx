@@ -3,8 +3,10 @@ import styled from 'styled-components';
 import { useParams, useNavigate } from 'react-router-dom';
 
 export default function ItemPage() {
+    
     const { itemId } = useParams();
     const navigate = useNavigate();
+    const [favorites, setFavorites] = useState( getFavorites() )
     
     // Initial state with empty values
     const [item, setItem] = useState({
@@ -94,6 +96,52 @@ export default function ItemPage() {
         ? `£${item.price.toFixed(2)}` 
         : item.price;
 
+    // Favorites handling
+    function getFavorites()
+    {
+        if (localStorage.getItem('favorites') === null)
+            localStorage.setItem('favorites', JSON.stringify([]));
+
+        return JSON.parse( localStorage.getItem('favorites') );
+    }
+
+    function favoritesCheckID()
+    {
+        let isFavorite = false; 
+
+        for (let i = 0; i < favorites.length; ++i)
+        {
+            if (favorites[i] === Number.parseInt(itemId))
+            {
+                isFavorite = true;
+                break;
+            }
+        }
+
+        return isFavorite;
+    }
+
+    const handleFavoritesToggle = (id) => 
+    {
+        let workingFavorites = [...favorites];
+        const isFavorite = favoritesCheckID();
+
+        if (isFavorite)
+        {
+            /* Remove from favorites */
+            const index = workingFavorites.indexOf(Number.parseInt(itemId));
+            workingFavorites.splice(index, 1);
+        }
+        else
+        {
+            /* Add to favorites */
+            workingFavorites.push(Number.parseInt(itemId));
+        }
+
+        setFavorites(workingFavorites);
+        localStorage.setItem('favorites', JSON.stringify(workingFavorites));
+    }
+
     return (
         <PageContainer>
             <ItemCard>
@@ -139,8 +187,8 @@ export default function ItemPage() {
                             <AddToOrderButton onClick={handleAddToOrder}>
                                 Add to Order
                             </AddToOrderButton>
-                            <FavoriteButton>
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <FavoriteButton onClick={handleFavoritesToggle}>
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill={favoritesCheckID() ? "red" : "none"} xmlns="http://www.w3.org/2000/svg">
                                     <path d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
                                 </svg>
                             </FavoriteButton>
