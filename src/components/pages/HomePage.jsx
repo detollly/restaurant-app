@@ -14,28 +14,13 @@ const HomePage = () => {
         <div className="overlay">
           <h1>BioMorph Bistro</h1>
           <h2>A Culinary Illusion, Naturally Printed</h2>
+          <h3>
+            Step into BioMorph Bistro, where innovation meets nature with
+            3D-printed organic meals, crafted from sustainably sourced
+            ingredients to nourish both body and planet.
+          </h3>
         </div>
       </section>
-
-      <div className="body">
-        <p>
-          Step into a world where innovation meets nature. At Biomorph Bistro,
-          we craft delicious, 3D-printed organic meals using sustainably
-          sourced, natural ingredients. Inspired by the intelligence of mycelium
-          networks, our menu is designed to nourish both body and planet,
-          offering nutrient-rich, eco-friendly cuisine that supports gut health,
-          immunity, and sustainable living.{" "}
-        </p>
-        <p>
-          Experience a fusion of science and flavor, where every bite is a step
-          towards a healthier, greener future. Join us in redefining food—one
-          biomorphic creation at a time!
-        </p>
-        <p>[placeholder for video]</p>
-        <p>Explore our innovative and natural menu</p>
-        <p>[placeholder for explore menu button]</p>
-      </div>
-      <div className="banner"></div>
     </HomePageCSS>
   );
 };
@@ -85,9 +70,14 @@ const HomePageCSS = styled.div`
     font-size: 1.5rem;
     font-weight: 300;
     letter-spacing: 0.1em;
+    margin-bottom: 1rem;
   }
 
-  .body {
-    margin: 10rem 3rem;
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 300;
+    letter-spacing: 0.1em;
+    max-width: 50rem;
+    margin-top: 1rem;
   }
 `;

@@ -1,5 +1,5 @@
-import MyRoutes from './components/routing/MyRoutes';
-import GlobalStyle from './GlobalStyle';
+import MyRoutes from "./components/routing/MyRoutes";
+import GlobalStyle from "./GlobalStyle";
 
 function App() {
   return (
