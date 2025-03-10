@@ -218,7 +218,7 @@ const ModalContent = styled.div`
   .total-amount {
     font-size: 1.2rem;
     font-weight: bold;
-    color: #007bff;
+    color: #003366;
     text-align: center;
     margin-bottom: 20px;
   }
@@ -243,7 +243,7 @@ const FormGroup = styled.div`
     
     &:focus {
       outline: none;
-      border-color: #007bff;
+      border-color: #003366;
     }
   }
   
