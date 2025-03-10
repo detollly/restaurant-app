@@ -326,10 +326,10 @@ const CheckoutPageCSS = styled.div`
     }
 
     #order-button {
-        background-color: #28a745;
+        background-color: #73A19E;
 
         &:hover {
-            background-color: #218838;
+            background-color: rgb(83, 121, 117);
         }
     }
 
@@ -409,7 +409,7 @@ const ModalContent = styled.div`
 
     .add-item-button {
         padding: 5px 10px;
-        background-color: #28a745;
+        background-color: #73A19E;
         color: white;
         border: none;
         border-radius: 4px;
@@ -417,14 +417,14 @@ const ModalContent = styled.div`
         transition: background-color 0.2s;
 
         &:hover {
-            background-color: #218838;
+            background-color: rgb(83, 121, 117);
         }
     }
 
     .finish-order-button {
         margin-top: 20px;
         padding: 10px 20px;
-        background-color: #28a745;
+        background-color: #73A19E;
         color: white;
         border: none;
         border-radius: 6px;
@@ -432,14 +432,14 @@ const ModalContent = styled.div`
         transition: background-color 0.2s;
 
         &:hover {
-            background-color: #218838;
+            background-color: rgb(83, 121, 117);
         }
     }
 
     .close-modal-button {
         margin-top: 10px;
         padding: 10px 20px;
-        background-color: #dc3545;
+        background-color: #FF7F50;
         color: white;
         border: none;
         border-radius: 6px;
@@ -447,7 +447,7 @@ const ModalContent = styled.div`
         transition: background-color 0.2s;
 
         &:hover {
-            background-color: #c82333;
+            background-color: rgb(184, 89, 54);
         }
     }
 `;
