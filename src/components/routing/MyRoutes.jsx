@@ -5,6 +5,7 @@ import OrderPage from "../pages/OrderPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import ItemPage from "../pages/ItemPage";
 import Header from "../Header";
+import BookATable from "../pages/BookATable";
 
 const MyRoutes = () => {
     return (
@@ -15,8 +16,8 @@ const MyRoutes = () => {
                 <Route path="/order" element={<OrderPage/>}/>
                 <Route path="/checkout" element={<CheckoutPage/>}/>
                 <Route path="/item/:itemId" element={<ItemPage/>}/> 
+                <Route path="/book" element={<BookATable/>}/>
             </Routes>
-
         </Router>
     );
 }
