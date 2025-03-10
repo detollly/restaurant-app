@@ -8,15 +8,16 @@ import Header from "../Header";
 
 const MyRoutes = () => {
     return (
-        <Router>
+        <Router className='grid-rows-2 grid-cols-1'>
             <Header id='header'/>
-            <Routes id='routes'>
+            <div className='mt-24'> {/* mt-24 is Tailwind padding to match banner */}
+            <Routes id='routes'> 
                 <Route path="/" element={<Homepage/>}/>
                 <Route path="/order" element={<OrderPage/>}/>
                 <Route path="/checkout" element={<CheckoutPage/>}/>
                 <Route path="/item/:itemId" element={<ItemPage/>}/> 
             </Routes>
-
+            </div>
         </Router>
     );
 }
