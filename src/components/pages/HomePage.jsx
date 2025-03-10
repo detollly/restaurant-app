@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from "react-router-dom";
 
-// Import all carousel images
+// importing all the carousel images
 const carouselImages = [
   require("../carousel/pic1.jpg"),
   require("../carousel/pic2.jpg"),
@@ -103,9 +103,20 @@ const HomePage = () => {
             3D-printed organic meals, crafted from sustainably sourced
             ingredients to nourish both body and planet.
           </h3>
-          <button className="explore-button" onClick={() => navigate("/order")}>
-            Explore Menu
-          </button>
+          <div className="button-container">
+            <button
+              className="explore-button"
+              onClick={() => navigate("/order")}
+            >
+              Explore Menu
+            </button>
+            <button
+              className="explore-button"
+              onClick={() => navigate("/booking")}
+            >
+              Reserve Now
+            </button>
+          </div>
         </div>
       </section>
 
@@ -177,6 +188,18 @@ const HomePageCSS = styled.div`
     font-size: 6rem;
     font-weight: 200;
     letter-spacing: 0.2em;
+
+    @media (max-width: 768px) {
+      font-size: 3.5rem;
+      letter-spacing: 0.15em;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 2.8rem;
+      letter-spacing: 0.2em;
+      word-spacing: 0.2em;
+      padding: 0 0.5rem;
+    }
   }
 
   .overlay h2 {
@@ -184,6 +207,17 @@ const HomePageCSS = styled.div`
     font-size: 2rem;
     font-weight: 300;
     letter-spacing: 0.1em;
+
+    @media (max-width: 768px) {
+      font-size: 1.75rem;
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1.5rem;
+      letter-spacing: 0.1em;
+      padding: 0 1rem;
+    }
   }
 
   .overlay h3 {
@@ -192,10 +226,36 @@ const HomePageCSS = styled.div`
     font-size: 1.125rem;
     font-weight: 300;
     letter-spacing: 0.05em;
+
+    @media (max-width: 768px) {
+      font-size: 1.1rem;
+      max-width: 90%;
+      margin: 1rem auto;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 480px) {
+      font-size: 1rem;
+      max-width: 95%;
+      padding: 0 1rem;
+      line-height: 1.6;
+    }
+  }
+
+  .button-container {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+
+    @media (max-width: 480px) {
+      flex-direction: column;
+      gap: 1rem;
+      width: 80%;
+    }
   }
 
   .explore-button {
-    margin-top: 2rem;
+    margin-top: 0; // Override the previous margin-top
     padding: 1rem 2.5rem;
     font-size: 1.125rem;
     font-weight: 300;
