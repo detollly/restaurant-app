@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from 'styled-components'; 
 import { Link } from 'react-router-dom';
+import PaymentModal from './PaymentModal'; // Import the new PaymentModal component
 
 export default function CheckoutPage() {
     const [itemDetails, setItemDetails] = useState([]);
@@ -9,7 +10,8 @@ export default function CheckoutPage() {
     const [showFinaliseOrderModal, setShowFinaliseOrderModal] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('drinks'); // Default category
     const [missingItems, setMissingItems] = useState([]);
-    const [orderFinalized, setOrderFinalized] = useState(false); // New state to track if order is finalized
+    const [orderFinalized, setOrderFinalized] = useState(false); // Track if order is finalized
+    const [showPaymentModal, setShowPaymentModal] = useState(false); // New state for payment modal
 
     useEffect(() => {
         getItemDetails(); 
@@ -68,8 +70,8 @@ export default function CheckoutPage() {
     };
 
     const handleOrder = () => {
-        console.log("Order button clicked");
-        // Add functionality here if needed
+        // Show payment modal when Order button is clicked
+        setShowPaymentModal(true);
     };
 
     const handleShowFinaliseOrder = () => {
@@ -87,13 +89,16 @@ export default function CheckoutPage() {
         setShowFinaliseOrderModal(false); // Close the modal
         setOrderFinalized(true); // Set order as finalized to show the Order button
         console.log("Order finalised");
-        // Add functionality to finalise the order here
     };
 
     const handleCategoryChange = (e) => {
         setSelectedCategory(e.target.value); // Update the selected category
         const missingItemsList = Object.values(itemDetails).filter(item => item.category === e.target.value && !cartItems[item.id]);
         setMissingItems(missingItemsList);
+    };
+
+    const handleClosePaymentModal = () => {
+        setShowPaymentModal(false);
     };
 
     return (
@@ -177,6 +182,13 @@ export default function CheckoutPage() {
                     </ModalContent>
                 </ModalOverlay>
             )}
+
+            {/* Payment Modal */}
+            <PaymentModal 
+                isOpen={showPaymentModal} 
+                onClose={handleClosePaymentModal} 
+                orderTotal={total} 
+            />
         </CheckoutPageCSS>
     );
 } 
@@ -196,6 +208,7 @@ const CheckoutPageCSS = styled.div`
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
+    /* Existing CSS remains the same */
     #header {
         text-align: center;
         margin-bottom: 20px;
