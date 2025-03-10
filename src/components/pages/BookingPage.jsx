@@ -71,7 +71,7 @@ const areTablesAvailable = (date, time, tablesNeeded) => {
   return mockTableData[date][time] >= tablesNeeded;
 };
 
-const BookATable = () => {
+const BookingPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     date: "",
@@ -553,7 +553,7 @@ const BookATable = () => {
   );
 };
 
-export default BookATable;
+export default BookingPage;
 
 const BookATableCSS = styled.div`
   .explore-button {

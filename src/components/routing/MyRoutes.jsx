@@ -5,7 +5,7 @@ import OrderPage from "../pages/OrderPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import ItemPage from "../pages/ItemPage";
 import Header from "../Header";
-import BookATable from "../pages/BookATable";
+import BookingPage from "../pages/BookingPage";
 import FeedbackPage from "../pages/FeedbackPage"
 
 const MyRoutes = () => {
@@ -18,7 +18,7 @@ const MyRoutes = () => {
                 <Route path="/order" element={<OrderPage/>}/>
                 <Route path="/checkout" element={<CheckoutPage/>}/>
                 <Route path="/item/:itemId" element={<ItemPage/>}/> 
-                <Route path="/book" element={<BookATable/>}/>
+                <Route path="/book" element={<BookingPage/>}/>
                 <Route path="/feedback" element={<FeedbackPage/>}/>
             </Routes>
             </div>
