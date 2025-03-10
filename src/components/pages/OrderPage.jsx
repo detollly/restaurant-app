@@ -167,7 +167,6 @@ const OrderPageCSS = styled.div`
 
     position: absolute;
     box-sizing: border-box;
-    margin-top: 10rem;
     width: 100%;
     height: 100%;
     overflow: hidden;

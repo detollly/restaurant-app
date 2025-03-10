@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import styled from 'styled-components'; 
 import { Link } from 'react-router-dom';
+import PaymentModal from './PaymentModal'; // Import the new PaymentModal component
 
 export default function CheckoutPage() {
     const [itemDetails, setItemDetails] = useState([]);
@@ -9,7 +10,8 @@ export default function CheckoutPage() {
     const [showFinaliseOrderModal, setShowFinaliseOrderModal] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState('drinks'); // Default category
     const [missingItems, setMissingItems] = useState([]);
-    const [orderFinalized, setOrderFinalized] = useState(false); // New state to track if order is finalized
+    const [orderFinalized, setOrderFinalized] = useState(false); // Track if order is finalized
+    const [showPaymentModal, setShowPaymentModal] = useState(false); // New state for payment modal
 
     useEffect(() => {
         getItemDetails(); 
@@ -68,8 +70,8 @@ export default function CheckoutPage() {
     };
 
     const handleOrder = () => {
-        console.log("Order button clicked");
-        // Add functionality here if needed
+        // Show payment modal when Order button is clicked
+        setShowPaymentModal(true);
     };
 
     const handleShowFinaliseOrder = () => {
@@ -87,13 +89,16 @@ export default function CheckoutPage() {
         setShowFinaliseOrderModal(false); // Close the modal
         setOrderFinalized(true); // Set order as finalized to show the Order button
         console.log("Order finalised");
-        // Add functionality to finalise the order here
     };
 
     const handleCategoryChange = (e) => {
         setSelectedCategory(e.target.value); // Update the selected category
         const missingItemsList = Object.values(itemDetails).filter(item => item.category === e.target.value && !cartItems[item.id]);
         setMissingItems(missingItemsList);
+    };
+
+    const handleClosePaymentModal = () => {
+        setShowPaymentModal(false);
     };
 
     return (
@@ -177,6 +182,13 @@ export default function CheckoutPage() {
                     </ModalContent>
                 </ModalOverlay>
             )}
+
+            {/* Payment Modal */}
+            <PaymentModal 
+                isOpen={showPaymentModal} 
+                onClose={handleClosePaymentModal} 
+                orderTotal={total} 
+            />
         </CheckoutPageCSS>
     );
 } 
@@ -196,6 +208,7 @@ const CheckoutPageCSS = styled.div`
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
+    /* Existing CSS remains the same */
     #header {
         text-align: center;
         margin-bottom: 20px;
@@ -253,7 +266,7 @@ const CheckoutPageCSS = styled.div`
 
         .quantity-button {
             padding: 5px 10px;
-            background-color: #007bff;
+            background-color: #73A19E;
             color: white;
             border: none;
             border-radius: 4px;
@@ -261,13 +274,13 @@ const CheckoutPageCSS = styled.div`
             transition: background-color 0.2s;
 
             &:hover {
-                background-color: #0056b3;
+                background-color:rgb(83, 121, 117);
             }
         }
 
         .item-price {
             font-weight: bold;
-            color: #007bff;
+            color: #003366;
             min-width: 80px;
             text-align: right;
         }
@@ -287,7 +300,7 @@ const CheckoutPageCSS = styled.div`
         }
 
         .total-amount {
-            color: #007bff;
+            color: #003366;
         }
     }
 
@@ -299,7 +312,7 @@ const CheckoutPageCSS = styled.div`
 
     #amend-order-button, #order-button, #finalise-order-button {
         padding: 10px 20px;
-        background-color: #007bff;
+        background-color: #73A19E;
         color: white;
         border: none;
         border-radius: 6px;
@@ -308,23 +321,23 @@ const CheckoutPageCSS = styled.div`
         transition: background-color 0.2s;
 
         &:hover {
-            background-color: #0056b3;
+            background-color: rgb(83, 121, 117);
         }
     }
 
     #order-button {
-        background-color: #28a745;
+        background-color: #73A19E;
 
         &:hover {
-            background-color: #218838;
+            background-color: rgb(83, 121, 117);
         }
     }
 
     #finalise-order-button {
-        background-color: #ffc107;
+        background-color: #FF7F50;
 
         &:hover {
-            background-color: #e0a800;
+            background-color:rgb(184, 89, 54);
         }
     }
 `;
@@ -391,12 +404,12 @@ const ModalContent = styled.div`
     }
 
     .item-price {
-        color: #007bff;
+        color: #003366;
     }
 
     .add-item-button {
         padding: 5px 10px;
-        background-color: #28a745;
+        background-color: #73A19E;
         color: white;
         border: none;
         border-radius: 4px;
@@ -404,14 +417,14 @@ const ModalContent = styled.div`
         transition: background-color 0.2s;
 
         &:hover {
-            background-color: #218838;
+            background-color: rgb(83, 121, 117);
         }
     }
 
     .finish-order-button {
         margin-top: 20px;
         padding: 10px 20px;
-        background-color: #28a745;
+        background-color: #73A19E;
         color: white;
         border: none;
         border-radius: 6px;
@@ -419,14 +432,14 @@ const ModalContent = styled.div`
         transition: background-color 0.2s;
 
         &:hover {
-            background-color: #218838;
+            background-color: rgb(83, 121, 117);
         }
     }
 
     .close-modal-button {
         margin-top: 10px;
         padding: 10px 20px;
-        background-color: #dc3545;
+        background-color: #FF7F50;
         color: white;
         border: none;
         border-radius: 6px;
@@ -434,7 +447,7 @@ const ModalContent = styled.div`
         transition: background-color 0.2s;
 
         &:hover {
-            background-color: #c82333;
+            background-color: rgb(184, 89, 54);
         }
     }
 `;
