@@ -28,6 +28,7 @@ function NavBar() {
                         <li><Link to="/" onClick={toggleMenu}>Home</Link></li>
                         <li><Link to="/order" onClick={toggleMenu}>Order</Link></li>
                         <li><Link to="/checkout" onClick={toggleMenu}>Checkout</Link></li>
+                        <li><Link to="/feedback">Feedback</Link></li>
                     </ul>
                 </nav>
             </div>
