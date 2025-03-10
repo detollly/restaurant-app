@@ -26,6 +26,7 @@ function NavBar() {
                 <nav className={isOpen ? 'active' : ''}>
                     <ul>
                         <li><Link to="/" onClick={toggleMenu}>Home</Link></li>
+                        <li><Link to="/book"onClick={toggleMenu}>Book a Table</Link></li>
                         <li><Link to="/order" onClick={toggleMenu}>Order</Link></li>
                         <li><Link to="/checkout" onClick={toggleMenu}>Checkout</Link></li>
                         <li><Link to="/feedback">Feedback</Link></li>
