@@ -13,9 +13,7 @@ const HomePage = () => {
                 <p>[placeholder for video]</p>
                 <p>Explore our innovative and natural menu</p>
                 <p>[placeholder for explore menu button]</p>
-            </div>
-            <div className="banner">    
-            </div>      
+            </div>    
         </HomePageCSS>
 
         )
@@ -26,8 +24,13 @@ export default HomePage
 const HomePageCSS = styled.div`
 
 .body {
-    margin: 10rem 3rem;
-    background-color: transparent;
-    }
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: 10rem 3rem 3rem 3rem;
+    width: 100%;
+    min-height: calc(100vh - 10rem - 10rem); /* Ensures it takes up the remaining height */
+    overflow: hidden;
+}
 
 `;

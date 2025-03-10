@@ -162,17 +162,17 @@ function getSelectedItemsFromQuantities(quantities)
 }
 
 
-/* Adjust styles here */
 const OrderPageCSS = styled.div`
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  margin-top: 10rem;
+  margin-bottom: 3rem;
+  width: 100%;
+  min-height: calc(100vh - 10rem - 10rem); /* Ensures it takes up the remaining height */
+  overflow: hidden;
+`;
 
-    position: absolute;
-    box-sizing: border-box;
-    margin-top: 10rem;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-    
-`
 
 
 /* Get only unique: https://stackoverflow.com/questions/1960473/get-all-unique-values-in-a-javascript-array-remove-duplicates */

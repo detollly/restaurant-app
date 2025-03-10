@@ -5,6 +5,7 @@ import OrderPage from "../pages/OrderPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import ItemPage from "../pages/ItemPage";
 import Header from "../Header";
+import Footer from "../Footer";
 
 const MyRoutes = () => {
     return (
@@ -16,7 +17,7 @@ const MyRoutes = () => {
                 <Route path="/checkout" element={<CheckoutPage/>}/>
                 <Route path="/item/:itemId" element={<ItemPage/>}/> 
             </Routes>
-
+            <Footer id='footer'/>
         </Router>
     );
 }
