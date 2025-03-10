@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function FeedBack() {
+function FeedbackPage() {
   return (
     <div className="w-full max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
       <form action="http://djevelyn.helioho.st/menu/feedback/add" method="POST" className="space-y-6">
@@ -76,4 +76,4 @@ function FeedBack() {
   );
 }
 
-export default FeedBack;
+export default FeedbackPage;
