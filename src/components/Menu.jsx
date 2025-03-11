@@ -7,10 +7,30 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
     const [menuList, setMenuList] = useState([]);
     const [category, setCategory] = useState('all');
 
+    // Error handling
+    const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(false); 
+
     async function getMenuItems() {
         fetch('https://djevelyn.helioho.st/menu/items/all?key=123')
-        .then(response => response.json())
-        .then(data => { setMenuList(data) });
+        .then(response => 
+        {
+          setIsLoading(false);
+
+          if (response.ok)
+            return response.json();
+          else
+            throw new Error(`HTTP error! status: ${response.status}`);
+          
+        })
+        .then(data => { setMenuList(data) })
+        .catch(err => 
+        {
+          setIsLoading(false);
+          setIsError(true); 
+          console.log(`Error: ${err.message}`); 
+        }
+        )
     }
 
     useEffect(() => {
@@ -55,6 +75,26 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
           return menuList.filter(item => item.category === category);
       }
     };
+
+
+    // Error rendering
+    if (isLoading)
+    {
+      return (
+        <div className='flex justify-center flex-center'> 
+        Loading 
+        </div>
+      )
+    }
+
+    if (isError)
+    {
+      return (
+        <div className='flex justify-center items-center'> 
+        Unable to connect to server. Refresh page to try again. 
+        </div>
+      )
+    }
 
     return (
       <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-4 md:grid-rows-1 h-screen mb-20">
