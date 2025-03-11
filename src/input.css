@@ -1,11 +1,1 @@
 @import "tailwindcss";
-
-
-.footer-container {
-    display: flex;
-    flex-direction: column;
-}
-
-.logo img{
-
-}
