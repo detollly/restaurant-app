@@ -200,13 +200,13 @@ function getCartItems() {
 }
 
 const CheckoutPageCSS = styled.div`
-
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
-    margin: 10rem 3rem 5rem 3rem;
-    width: 100%;
-    min-height: calc(100vh - 10rem - 10rem); /* Ensures it takes up the remaining height */
+    margin: 10rem auto 5rem auto; /* Changed to auto on left and right for centering */
+    width: 80%; /* Changed from 100% to 80% */
+    max-width: 1200px; /* Added max-width to prevent it from getting too wide */
+    min-height: calc(100vh - 10rem - 10rem);
     overflow: hidden;
     background-color: #FAF9F6;
     border-radius: 8px;
@@ -226,6 +226,7 @@ const CheckoutPageCSS = styled.div`
         display: flex;
         flex-direction: column;
         gap: 20px;
+        padding: 0 20px; /* Added padding to prevent content from touching edges */
     }
 
     #order-summary-section {
@@ -342,6 +343,18 @@ const CheckoutPageCSS = styled.div`
 
         &:hover {
             background-color:rgb(184, 89, 54);
+        }
+    }
+    @media (max-width: 768px) {
+        width: 90%;
+        margin: 8rem auto 4rem auto;
+        
+        #button-container {
+            flex-direction: column;
+            
+            button, a {
+                width: 100%;
+            }
         }
     }
 `;
