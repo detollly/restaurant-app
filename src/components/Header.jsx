@@ -138,7 +138,13 @@ const NavBarCSS = styled.div`
     a {
         text-decoration: none;
         font-weight: 500;
-        font-size: 1.2rem;
+        font-size: 1rem;
+        transition: color 0.3s ease, font-size 0.3s ease; /* Add transition for color and font size */
+    }
+    
+    a:hover {
+        color: #FF7F50; /* Change color on hover */
+        font-size: 1.4rem; /* Increase font size on hover */
     }
     
     /* Media query for smaller screens */
@@ -177,7 +183,13 @@ const NavBarCSS = styled.div`
         }
 
         a {
-        color: #002d2c;
+            color: #002d2c;
+            transition: color 0.3s ease, font-size 0.3s ease; /* Ensure mobile links also have transition */
+        }
+
+        a:hover {
+            color: #FF7F50; /* Change color on hover for mobile */
+            font-size: 1.4rem; /* Increase font size on hover for mobile */
         }
     }
 `;
