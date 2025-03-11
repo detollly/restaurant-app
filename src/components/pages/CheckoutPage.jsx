@@ -13,6 +13,10 @@ export default function CheckoutPage() {
     const [orderFinalized, setOrderFinalized] = useState(false); // Track if order is finalized
     const [showPaymentModal, setShowPaymentModal] = useState(false); // New state for payment modal
 
+    // Error handling
+    const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(false); 
+    
     useEffect(() => {
         getItemDetails(); 
     }, []); 
@@ -25,9 +29,26 @@ export default function CheckoutPage() {
     }, [cartItems, itemDetails]);
 
     async function getItemDetails() {
-        const response = await fetch('https://djevelyn.helioho.st/menu/items/all?key=123');
-        const result = await response.json(); 
-        setupList(result); 
+        try 
+        {
+            const response = await fetch('https://djevelyn.helioho.st/menu/items/all?key=123');
+
+            if (!response.ok)
+                throw new Error(`HTTP error! status: ${response.status}`);
+
+            const result = await response.json(); 
+
+            setIsLoading(false); 
+
+            setupList(result); 
+        }
+        catch (err) {
+
+            setIsLoading(false);
+            setIsError(true); 
+            console.log(`Error: ${err.message}`); 
+
+        }
     }
 
     function setupList(givenObjectList) {
@@ -100,6 +121,25 @@ export default function CheckoutPage() {
     const handleClosePaymentModal = () => {
         setShowPaymentModal(false);
     };
+
+    // Error rendering
+    if (isLoading)
+    {
+        return (
+        <div className='min-h-[300px] flex justify-center flex-center'> 
+        Loading 
+        </div>
+        )
+    }
+
+    if (isError)
+    {
+        return (
+        <div className='min-h-[300px] flex justify-center items-center'> 
+        Unable to connect to server. Refresh page to try again. 
+        </div>
+        )
+    }
 
     return (
         <CheckoutPageCSS>
@@ -200,11 +240,15 @@ function getCartItems() {
 }
 
 const CheckoutPageCSS = styled.div`
-    position: relative;
-    margin: 2rem auto;
-    max-width: 900px;
-    padding: 20px;
-    background-color: #f8f9fa;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: 10rem auto 5rem auto; /* Changed to auto on left and right for centering */
+    width: 80%; /* Changed from 100% to 80% */
+    max-width: 1200px; /* Added max-width to prevent it from getting too wide */
+    min-height: calc(100vh - 10rem - 10rem);
+    overflow: hidden;
+    background-color: #FAF9F6;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
@@ -222,6 +266,7 @@ const CheckoutPageCSS = styled.div`
         display: flex;
         flex-direction: column;
         gap: 20px;
+        padding: 0 20px; /* Added padding to prevent content from touching edges */
     }
 
     #order-summary-section {
@@ -338,6 +383,18 @@ const CheckoutPageCSS = styled.div`
 
         &:hover {
             background-color:rgb(184, 89, 54);
+        }
+    }
+    @media (max-width: 768px) {
+        width: 90%;
+        margin: 8rem auto 4rem auto;
+        
+        #button-container {
+            flex-direction: column;
+            
+            button, a {
+                width: 100%;
+            }
         }
     }
 `;

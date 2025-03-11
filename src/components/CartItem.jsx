@@ -5,11 +5,15 @@ const CartItem = ({ name, price, quantity, removeAction }) => {
     return (
         <CartItemCSS>
             <div className="item-info">
-                <h3>{name}</h3>
-                <p>Price: £{price.toFixed(2)}</p>
-                <p>Quantity: {quantity}</p>
+                <div className="item-name">{name}</div>
+                <div className="item-price">£{price.toFixed(2)}</div>
             </div>
-            <button onClick={removeAction}>Remove</button>
+            <div className="item-controls">
+                <div className="quantity-display">
+                    <span>Qty: {quantity}</span>
+                </div>
+                <button onClick={removeAction}>Remove</button>
+            </div>
         </CartItemCSS>
     );
 };
@@ -20,33 +24,57 @@ const CartItemCSS = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #ccc;
     padding: 10px 0;
+    border-bottom: 1px solid #eee;
 
     .item-info {
         flex: 1;
     }
 
-    h3 {
-        margin: 0;
-        font-size: 1.2em;
+    .item-name {
+        font-weight: bold;
+        color: #333;
+        margin-bottom: 5px;
     }
 
-    p {
-        margin: 5px 0;
+    .item-price {
+        color: #003366;
+        font-weight: bold;
+    }
+
+    .item-controls {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .quantity-display {
         color: #555;
+        font-weight: bold;
     }
 
     button {
-        background-color: #ff4d4d;
+        background-color: #FF7F50;
         color: white;
         border: none;
         padding: 5px 10px;
-        border-radius: 5px;
+        border-radius: 4px;
         cursor: pointer;
+        transition: background-color 0.2s;
+    }
 
-        &:hover {
-            background-color: #ff1a1a;
+    button:hover {
+        background-color: rgb(184, 89, 54);
+    }
+    
+    @media (max-width: 768px) {
+        flex-direction: column;
+        align-items: flex-start;
+        
+        .item-controls {
+            margin-top: 10px;
+            width: 100%;
+            justify-content: space-between;
         }
     }
 `;

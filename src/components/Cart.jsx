@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import CartItem from './CartItem';
-import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import { Link } from 'react-router-dom';
 
 const Cart = ({ getItemDetails, quantities, removeItem, menuList }) => {
     const [total, setTotal] = useState(0);
@@ -36,7 +36,8 @@ const Cart = ({ getItemDetails, quantities, removeItem, menuList }) => {
     return (
         <CartCSS>
             <div className='cart-header'>
-                {!(total >= 0)? '' : 'Total: £' + total.toFixed(2)}
+                <h2>Your Order</h2>
+                {!(total >= 0)? '' : <div className='total'>Total: £{total.toFixed(2)}</div>}
             </div>
 
             <div className='cart-items'>
@@ -63,7 +64,7 @@ const Cart = ({ getItemDetails, quantities, removeItem, menuList }) => {
                 </ul>
             </div>
 
-            {/* Add the checkout button at the bottom of the container */}
+            {/* Checkout button at the bottom of the container */}
             <div className="checkout-button">
                 <Link to="/checkout">
                     <button>Checkout</button>
@@ -77,28 +78,44 @@ export default Cart;
 
 const CartCSS = styled.div`
     box-sizing: border-box;
-    border: 1px purple solid; /* debugging */
     width: 100%;
     height: 100%;
-    background-color: #f8f9fa;
+    background-color: #FAF9F6;
     padding: 20px;
     box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: column; /* Stack children vertically */
-    justify-content: space-between; /* Push header to top, items in the middle, and button to bottom */
-    max-height: 90vh; /* Limit the height to 90% of the viewport height */
-    overflow: hidden; /* Prevent the entire cart from scrolling */
+    flex-direction: column;
+    justify-content: space-between;
+    max-height: 90vh;
+    overflow: hidden;
+    border-radius: 8px;
 
     .cart-header {
-        font-size: 1.5em;
-        font-weight: bold;
+        text-align: center;
         margin-bottom: 20px;
+        
+        h2 {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .total {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #003366;
+        }
     }
 
     .cart-items {
-        flex-grow: 1; /* Allow this section to take up remaining space */
-        overflow-y: auto; /* Add scroll if items overflow */
-        padding-right: 10px; /* Add padding to prevent scrollbar overlap */
+        flex-grow: 1;
+        overflow-y: auto;
+        padding-right: 10px;
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        padding: 15px;
+        margin-bottom: 20px;
     }
 
     .cart-items ul {
@@ -114,22 +131,33 @@ const CartCSS = styled.div`
     .checkout-button {
         display: flex;
         justify-content: flex-end;
-        margin-top: 20px;
-        padding-top: 20px; /* Add padding to separate button from items */
-        border-top: 1px solid #ddd; /* Optional: Add a border to separate button from items */
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #ddd;
     }
 
     .checkout-button button {
         padding: 10px 20px;
-        background-color: #007bff;
+        background-color: #73A19E;
         color: white;
         border: none;
-        border-radius: 5px;
+        border-radius: 6px;
         cursor: pointer;
         font-size: 1em;
+        transition: background-color 0.2s;
     }
 
     .checkout-button button:hover {
-        background-color: #0056b3;
+        background-color: rgb(83, 121, 117);
+    }
+    
+    @media (max-width: 768px) {
+        .checkout-button {
+            justify-content: center;
+        }
+        
+        .checkout-button button {
+            width: 100%;
+        }
     }
 `;
