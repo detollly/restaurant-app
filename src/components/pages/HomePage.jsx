@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import video from "../videos/biomorph.mp4";
 import Slider from "react-slick";
@@ -65,6 +65,32 @@ const StarRating = ({ rating }) => (
 
 const HomePage = () => {
   const navigate = useNavigate();
+  const [customerReviews, setCustomerReviews] = useState([]);
+
+  useEffect(() => {
+    fetchCustomerReviews();
+  }, []);
+
+  const fetchCustomerReviews = async () => {
+    try {
+      const response = await fetch(
+        "https://djevelyn.helioho.st/menu/feedback/all"
+      );
+      const data = await response.json();
+      // Sort reviews by date and rating
+      const sortedReviews = data.sort((a, b) => {
+        const dateComparison = new Date(b.date) - new Date(a.date);
+        if (dateComparison === 0) {
+          return b.rating - a.rating;
+        }
+        return dateComparison;
+      });
+      setCustomerReviews(sortedReviews);
+    } catch (error) {
+      console.error("Error fetching customer reviews:", error);
+    }
+  };
+
   const settings = {
     dots: true,
     infinite: true,
@@ -143,6 +169,38 @@ const HomePage = () => {
               <p className="role">{item.role}</p>
             </div>
           ))}
+        </div>
+      </section>
+
+      {/* Customer Reviews Section */}
+      <section className="customer-reviews-section">
+        <h2>And Here's What Our Customers Think</h2>
+        <div className="reviews-grid">
+          {customerReviews.length > 0 ? (
+            customerReviews.slice(0, 6).map((review, index) => (
+              <div key={index} className="review-card">
+                <StarRating rating={Number(review.rating)} />
+                <p className="review-text">{review.comments}</p>
+                <div className="review-footer">
+                  <div className="footer-left">
+                    <p className="reviewer-name">{review.customer_name}</p>
+                    <p className="visit-date">
+                      Visited:{" "}
+                      {new Date(review.visit_date).toLocaleDateString("en-GB", {
+                        day: "numeric",
+                        month: "short",
+                        year: "numeric",
+                      })}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <div className="no-reviews-message">
+              No customer reviews yet. Be the first to share your experience!
+            </div>
+          )}
         </div>
       </section>
     </HomePageCSS>
@@ -493,6 +551,133 @@ const HomePageCSS = styled.div`
       color: rgba(255, 255, 255, 0.9);
       font-size: 0.875rem;
       font-weight: 300;
+    }
+  }
+
+  .customer-reviews-section {
+    padding: 6rem 2rem;
+    background: linear-gradient(to bottom, #f8f9fa, #fff);
+
+    h2 {
+      text-align: center;
+      font-size: 2.8rem;
+      font-weight: 200;
+      color: #5e7269;
+      margin-bottom: 4rem;
+      letter-spacing: 0.15em;
+      position: relative;
+
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 2px;
+        background-color: #5e7269;
+      }
+    }
+
+    .reviews-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2.5rem;
+      align-items: stretch;
+      padding: 0 1rem;
+    }
+
+    .review-card {
+      background: white;
+      padding: 2.5rem;
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(94, 114, 105, 0.1);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: flex;
+      flex-direction: column;
+      border: 1px solid rgba(94, 114, 105, 0.1);
+
+      .star-rating {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.35rem;
+        margin-bottom: 1.5rem;
+
+        svg {
+          width: 26px;
+          height: 26px;
+          flex-shrink: 0;
+
+          &.star {
+            fill: rgba(255, 217, 0, 0.15);
+          }
+
+          &.filled {
+            fill: #ffd700;
+            filter: drop-shadow(0 2px 4px rgba(255, 215, 0, 0.2));
+          }
+        }
+      }
+
+      .review-text {
+        margin: 1rem 0;
+        color: #2c3e50;
+        line-height: 1.8;
+        font-style: italic;
+        font-size: 1.1rem;
+        flex-grow: 1;
+        position: relative;
+        padding: 0 0.5rem; // Changed from padding-left
+      }
+
+      .review-footer {
+        margin-top: auto;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(94, 114, 105, 0.1);
+
+        .footer-left {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .reviewer-name {
+          color: #5e7269;
+          font-weight: 600;
+          font-size: 1.2rem;
+          letter-spacing: 0.05em;
+        }
+
+        .visit-date {
+          color: #94a3b8;
+          font-size: 0.9rem;
+          font-style: italic;
+          letter-spacing: 0.03em;
+        }
+      }
+
+      &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 20px 40px rgba(94, 114, 105, 0.15);
+        border-color: rgba(94, 114, 105, 0.2);
+      }
+    }
+
+    .no-reviews-message {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 4rem;
+      font-size: 1.3rem;
+      color: #5e7269;
+      font-style: italic;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 15px;
+      box-shadow: 0 10px 30px rgba(94, 114, 105, 0.1);
+      border: 1px solid rgba(94, 114, 105, 0.1);
+      max-width: 800px;
+      margin: 2rem auto;
     }
   }
 `;
