@@ -1,6 +1,7 @@
 import React , {useEffect, useState} from "react";
 import MenuItem from "./MenuItem";
 import Cart from "./Cart";
+import styled from 'styled-components'
 
 
 const Menu = ( {addItem, removeItem, quantities} ) => {
@@ -97,8 +98,8 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
     }
 
     return (
-      <div className="grid grid-cols-1 grid-rows-2 md:grid-cols-4 md:grid-rows-1 h-screen mb-20">
-        
+      <MenuCSS>
+      <div className="grid-container">
         <div className="col-span-3 p-6 overflow-y-auto">        
           <h1 className="text-3xl font-bold text-center text-natural-dark mb-8">
             <i className="mdi mdi-leaf-maple mr-2"></i>
@@ -146,6 +147,7 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
           />
         </div>
       </div>
+      </MenuCSS>
     );
   };
 
@@ -154,6 +156,27 @@ export default Menu
 
 let categories = [];
 const baseCategories = ['mains', 'vegetarian', 'sides', 'drinks', 'dessert'];
+
+
+const MenuCSS = styled.div `
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr; /* One column */
+  grid-template-rows: repeat(2, 1fr); /* Two rows, equal height */
+  height: 100vh; /* Full viewport height */
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) { /* 768px is the default md breakpoint in Tailwind */
+  .grid-container {
+    grid-template-columns: repeat(4, 1fr); /* Four columns */
+    grid-template-rows: 1fr; /* One row */
+  }
+}
+
+`
+
 
 
 /* List to get if you cannot connect to online database */
