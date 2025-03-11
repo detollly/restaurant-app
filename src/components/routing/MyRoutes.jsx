@@ -6,18 +6,24 @@ import CheckoutPage from "../pages/CheckoutPage";
 import ItemPage from "../pages/ItemPage";
 import Header from "../Header";
 import Footer from "../Footer";
+import BookingPage from "../pages/BookingPage";
+import FeedbackPage from "../pages/FeedbackPage"
 
 const MyRoutes = () => {
     return (
-        <Router>
+        <Router className='grid-rows-2 grid-cols-1'>
             <Header id='header'/>
-            <Routes id='routes'>
+            <div className='mt-24'> {/* mt-24 is Tailwind padding to match banner */}
+            <Routes id='routes'> 
                 <Route path="/" element={<Homepage/>}/>
                 <Route path="/order" element={<OrderPage/>}/>
                 <Route path="/checkout" element={<CheckoutPage/>}/>
                 <Route path="/item/:itemId" element={<ItemPage/>}/> 
+                <Route path="/book" element={<BookingPage/>}/>
+                <Route path="/feedback" element={<FeedbackPage/>}/>
             </Routes>
             <Footer id='footer'/>
+            </div>
         </Router>
     );
 }

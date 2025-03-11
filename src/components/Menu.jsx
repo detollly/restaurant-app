@@ -16,6 +16,17 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
     useEffect(() => {
       getMenuItems(); 
       console.log(`Quantities: ` + quantities); 
+      
+      // Favorites handling
+      const favorites = JSON.parse(localStorage.getItem('favorites'));
+      
+      if (favorites === null || favorites === undefined || favorites.length === 0)
+        categories = ['all', ...baseCategories];
+      else {
+        console.log(`Favorites length is ${favorites.length}. Elements are {${favorites}}`)
+        categories = ['all', 'favorites', ...baseCategories];
+      }
+
     }, []);
 
     function getItemDetails(givenId) {
@@ -28,7 +39,21 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
     }
 
     const filterItems = () => {
-      return category === 'all' ? menuList : menuList.filter(item => item.category === category);
+      switch(category) {
+        case 'all':
+          return menuList;
+        case 'favorites':
+
+          const favorites = JSON.parse(localStorage.getItem('favorites'));
+
+          if (favorites === null)
+            return menuList;
+          else
+            return menuList.filter(item => favorites.includes(item.id));
+
+        default:
+          return menuList.filter(item => item.category === category);
+      }
     };
 
     return (
@@ -87,7 +112,8 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
 export default Menu
 
 
-const categories = ['all', 'mains', 'vegetarian', 'sides', 'drinks', 'dessert'];
+let categories = [];
+const baseCategories = ['mains', 'vegetarian', 'sides', 'drinks', 'dessert'];
 
 
 /* List to get if you cannot connect to online database */

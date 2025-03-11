@@ -14,7 +14,7 @@ function NavBar() {
         <NavBarCSS>
             <div className="navbar-container">
                 <div className="logo-section">
-                    <img src={logo} alt="logo" />
+                <li><Link to="/" onClick={toggleMenu}><img src={logo} alt="logo" /></Link></li>                
                 </div>
                 
                 <div className={`hamburger ${isOpen ? 'active' : ''}`} onClick={toggleMenu}>
@@ -26,8 +26,10 @@ function NavBar() {
                 <nav className={isOpen ? 'active' : ''}>
                     <ul>
                         <li><Link to="/" onClick={toggleMenu}>Home</Link></li>
+                        <li><Link to="/book" onClick={toggleMenu}>Book a Table</Link></li>
                         <li><Link to="/order" onClick={toggleMenu}>Order</Link></li>
                         <li><Link to="/checkout" onClick={toggleMenu}>Checkout</Link></li>
+                        <li><Link to="/feedback">Feedback</Link></li>
                     </ul>
                 </nav>
             </div>
