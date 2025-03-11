@@ -1,9 +1,64 @@
 import React, { useState } from 'react';
 
 function FeedbackPage() {
+
+  const [formData, setFormData] = useState({customer_name : '', customer_email : '', rating : '', comments : '', visit_date : ''}); 
+
+  // 0 no submission, 1 successful submission, -1 failed submission
+  const [submitState, setSubmitState] = useState(0)
+
+  const submitFeedback = (event) =>
+  {
+    event.preventDefault(); /* Prevent from going to HTTP response with page reload */
+
+    fetch('http://djevelyn.helioho.st/menu/feedback/add', 
+      {
+        method: 'POST',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify(formData)
+      }
+    )
+    .then(response => 
+    {
+      if (!response.ok)
+        throw new Error(`HTTP error! status: ${response.status}`);
+      else
+        setSubmitState(1); 
+    })
+    .catch(err => 
+    {
+      setSubmitState(-1);
+      console.log(`Error: ${err.message}`); 
+    });
+  }
+
+  if (submitState === 1)
+  {
+    return (
+      <div className='flex justify-center items-center h-screen'>
+        <h1> Thanks for your feedback! </h1>
+      </div>
+    )
+  }
+
+  else if (submitState === -1)
+  {
+    return (
+    <div className='flex justify-center items-center h-screen'>
+      <h1> There was an error submitting feedback. Refresh page to try again. </h1>
+    </div>
+    )
+  }
+
+  const handleChange = (event) =>
+  {
+      setFormData({ ...formData, [event.target.name] : event.target.value });
+  }
+
+
   return (
     <div className="w-full max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-      <form action="http://djevelyn.helioho.st/menu/feedback/add" method="POST" className="space-y-6">
+      <form onSubmit={submitFeedback} method="POST" className="space-y-6">
         <h2 className="text-3xl font-bold text-center text-indigo-800 mb-8">Share Your Dining Experience</h2>
 
         <div className="space-y-2">
@@ -12,6 +67,7 @@ function FeedbackPage() {
             type="text" 
             id="name" 
             name="customer_name" 
+            onChange={handleChange}
             required 
             className="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
           /> 
@@ -23,6 +79,7 @@ function FeedbackPage() {
             type="email" 
             id="email" 
             name="customer_email" 
+            onChange={handleChange}
             className="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
           />
         </div>
@@ -32,6 +89,7 @@ function FeedbackPage() {
           <select 
             id="rating" 
             name="rating" 
+            onChange={handleChange}
             required 
             className="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
           >
@@ -48,7 +106,8 @@ function FeedbackPage() {
           <textarea 
             id="comments" 
             name="comments" 
-            rows="4" 
+            rows="4"
+            onChange={handleChange}
             className="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors resize-y"
           ></textarea>
         </div>
@@ -59,6 +118,7 @@ function FeedbackPage() {
             type="date" 
             id="visit_date" 
             name="visit_date" 
+            onChange={handleChange}
             className="mt-1 block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-colors"
           />
         </div>
