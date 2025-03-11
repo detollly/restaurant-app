@@ -13,6 +13,10 @@ export default function CheckoutPage() {
     const [orderFinalized, setOrderFinalized] = useState(false); // Track if order is finalized
     const [showPaymentModal, setShowPaymentModal] = useState(false); // New state for payment modal
 
+    // Error handling
+    const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(false); 
+    
     useEffect(() => {
         getItemDetails(); 
     }, []); 
@@ -25,9 +29,26 @@ export default function CheckoutPage() {
     }, [cartItems, itemDetails]);
 
     async function getItemDetails() {
-        const response = await fetch('https://djevelyn.helioho.st/menu/items/all?key=123');
-        const result = await response.json(); 
-        setupList(result); 
+        try 
+        {
+            const response = await fetch('https://djevelyn.helioho.st/menu/items/all?key=123');
+
+            if (!response.ok)
+                throw new Error(`HTTP error! status: ${response.status}`);
+
+            const result = await response.json(); 
+
+            setIsLoading(false); 
+
+            setupList(result); 
+        }
+        catch (err) {
+
+            setIsLoading(false);
+            setIsError(true); 
+            console.log(`Error: ${err.message}`); 
+
+        }
     }
 
     function setupList(givenObjectList) {
@@ -100,6 +121,25 @@ export default function CheckoutPage() {
     const handleClosePaymentModal = () => {
         setShowPaymentModal(false);
     };
+
+    // Error rendering
+    if (isLoading)
+    {
+        return (
+        <div className='min-h-[300px] flex justify-center flex-center'> 
+        Loading 
+        </div>
+        )
+    }
+
+    if (isError)
+    {
+        return (
+        <div className='min-h-[300px] flex justify-center items-center'> 
+        Unable to connect to server. Refresh page to try again. 
+        </div>
+        )
+    }
 
     return (
         <CheckoutPageCSS>
