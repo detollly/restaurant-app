@@ -114,8 +114,8 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
                 onClick={() => setCategory(cat)}
                 className={`px-4 py-2 mx-1 rounded-full capitalize transition-all ${
                   category === cat 
-                    ? 'bg-natural-dark font-semibold text-green-300' 
-                    : 'bg-white text-gray-600 hover:bg-natural-light'
+                    ? 'bg-teal-700 text-gray-100 font-semibold hover:bg-natural-light' 
+                    : 'bg-natural-dark text-gray-600' 
                 }`}
               >
                 {cat}
