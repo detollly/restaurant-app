@@ -107,8 +107,8 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
             <i className="mdi mdi-atom ml-2"></i>
           </h1>
 
-        <div class="flex justify-center">
-          <div className="flex overflow-x-auto md:overflow-x-hidden justify-start mb-8">
+        <div style={ {display: 'flex', justifyContent: 'center'} }>
+          <div className="categories-container">
             {categories.map(cat => (
               <button 
                 key={cat} 
@@ -125,7 +125,7 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
           </div>
         </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="menu-items-container">
             {filterItems().map(item => (
               <MenuItem 
                 key={item.id} 
@@ -163,15 +163,36 @@ const MenuCSS = styled.div `
 .grid-container {
   display: grid;
   grid-template-columns: 1fr; /* One column */
-  grid-template-rows: repeat(2, 1fr); /* Two rows, equal height */
+  grid-template-rows: repeat(1, 1fr); /* Two rows, equal height */
   height: 100vh; /* Full viewport height */
   margin-bottom: 20px;
+}
+
+.categories-container {
+  display: flex;
+  overflow-x: auto; 
+  justify-content: flex-start; 
+  margin-bottom: 2rem; 
+}
+
+.menu-items-container {
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: calc(var(--spacing) * 4)
 }
 
 @media (min-width: 768px) { /* 768px is the default md breakpoint in Tailwind */
   .grid-container {
     grid-template-columns: repeat(4, 1fr); /* Four columns */
     grid-template-rows: 1fr; /* One row */
+  }
+
+  .menu-items-container {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .categories-container {
+    overflow-x: hidden; 
   }
 }
 
