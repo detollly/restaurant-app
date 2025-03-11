@@ -203,6 +203,63 @@ const NavBarCSS = styled.div`
     }
 
     a {
+
+        text-decoration: none;
+        font-weight: 500;
+        font-size: 1rem;
+        transition: color 0.3s ease, font-size 0.3s ease; /* Add transition for color and font size */
+    }
+    
+    a:hover {
+        color: #FF7F50; /* Change color on hover */
+        font-size: 1.4rem; /* Increase font size on hover */
+    }
+    
+    /* Media query for smaller screens */
+    @media (max-width: 768px) {
+        .hamburger {
+            display: flex;
+            margin-right: 1rem;
+        }
+        
+        nav {
+            position: fixed;
+            top: 6rem;
+            right: -100%;
+            width: 70%;
+            height: calc(100vh - 6rem);
+            background-color: #edf0f0;
+            margin: 0;
+            padding: 2rem 0;
+            transition: all 0.5s ease;
+            box-shadow: -2px 2px 4px rgba(0, 0, 0, 0.1);
+            z-index: 990; /* Lower than navbar but above other content */
+        }
+        
+        nav.active {
+            right: 0;
+        }
+        
+        ul {
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+        }
+        
+        li {
+            margin: 1.5rem 0;
+        }
+
+        a {
+            color: #002d2c;
+            transition: color 0.3s ease, font-size 0.3s ease; /* Ensure mobile links also have transition */
+        }
+
+        a:hover {
+            color: #FF7F50; /* Change color on hover for mobile */
+            font-size: 1.4rem; /* Increase font size on hover for mobile */
+        }
+    }
       color: #002d2c;
     }
   }
