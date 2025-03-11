@@ -26,6 +26,7 @@ const MyRoutes = () => {
           <Route path="/feedback" element={<FeedbackPage />} />
         </Routes>
       </div>
+      <Footer id='footer'/>
     </Router>
   );
 };
