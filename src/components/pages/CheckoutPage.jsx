@@ -200,11 +200,15 @@ function getCartItems() {
 }
 
 const CheckoutPageCSS = styled.div`
-    position: relative;
-    margin: 2rem auto;
-    max-width: 900px;
-    padding: 20px;
-    background-color: #f8f9fa;
+
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: 10rem 3rem 5rem 3rem;
+    width: 100%;
+    min-height: calc(100vh - 10rem - 10rem); /* Ensures it takes up the remaining height */
+    overflow: hidden;
+    background-color: #FAF9F6;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 

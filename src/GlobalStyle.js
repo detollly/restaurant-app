@@ -1,7 +1,33 @@
 import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Source+Sans+Pro:wght@400;700&display=swap');
+  /* Playfair Display fonts */
+  @font-face {
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 400;
+    src: url('https://fonts.gstatic.com/s/playfairdisplay/v22/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvXDXbtM.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Playfair Display';
+    font-style: normal;
+    font-weight: 700;
+    src: url('https://fonts.gstatic.com/s/playfairdisplay/v22/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKeiunDXbtM.woff2') format('woff2');
+  }
+  
+  /* Montserrat fonts */
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    src: url('https://fonts.gstatic.com/s/montserrat/v15/JTUSjIg1_i6t8kCHKm459Wlhyw.woff2') format('woff2');
+  }
+  @font-face {
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    src: url('https://fonts.gstatic.com/s/montserrat/v15/JTURjIg1_i6t8kCHKm45_dJE3gnD_g.woff2') format('woff2');
+  }
   
   html, body, #root {
     margin: 0;
@@ -9,11 +35,10 @@ const GlobalStyle = createGlobalStyle`
     min-height: 100%;
     background-color: #e3e6e9;
     box-sizing: border-box;
-    font-family: 'Source Sans Pro', sans-serif; /* Default font */
+    font-family: 'Montserrat', sans-serif;
   }
-
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Poppins', sans-serif; /* Font for headings */
+    font-family: 'Playfair Display', serif;
   }
 `;
 

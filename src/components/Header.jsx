@@ -46,9 +46,9 @@ const NavBarCSS = styled.div`
     width: 100%;
     height: 6rem;
     background-color: #73A19E;
-    color: #F2F9F9;
+    color: #FAF9F6;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    z-index: 1000; /* Ensures navbar is above all other content */
+    z-index: 1000; /* Ensures header is above all other content */
     
     .navbar-container {
         width: 100%;

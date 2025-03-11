@@ -5,6 +5,7 @@ import OrderPage from "../pages/OrderPage";
 import CheckoutPage from "../pages/CheckoutPage";
 import ItemPage from "../pages/ItemPage";
 import Header from "../Header";
+import Footer from "../Footer";
 import BookingPage from "../pages/BookingPage";
 import FeedbackPage from "../pages/FeedbackPage"
 
@@ -21,6 +22,7 @@ const MyRoutes = () => {
                 <Route path="/book" element={<BookingPage/>}/>
                 <Route path="/feedback" element={<FeedbackPage/>}/>
             </Routes>
+            <Footer id='footer'/>
             </div>
         </Router>
     );
