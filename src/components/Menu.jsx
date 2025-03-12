@@ -133,7 +133,7 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
     return (
       <MenuCSS>
       <div className="grid-container">
-        <div className="col-span-3 p-6 overflow-y-auto">        
+        <div className="menu-container">        
           <h1 className="text-3xl font-bold text-center text-natural-dark mb-8">
             <i className="mdi mdi-leaf-maple mr-2"></i>
             Menu
@@ -171,7 +171,7 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
           </div>
         </div>
 
-        <div className="col-span-1 bg-gray-50 p-4">
+        <div className='cart-container'>
           <Cart 
             menuList={menuList} 
             getItemDetails={getItemDetails} 
@@ -199,6 +199,14 @@ const MenuCSS = styled.div `
   margin-bottom: 20px;
 }
 
+.menu-container {
+  height: 100%; 
+  overflow-y: auto;
+  padding: calc(var(--spacing) * 6);
+
+  grid-column: span 3;
+}
+
 .categories-container {
   display: flex;
   overflow-x: auto; 
@@ -210,6 +218,12 @@ const MenuCSS = styled.div `
   display: grid;
   grid-template-columns: repeat(1, 1fr);
   gap: calc(var(--spacing) * 4)
+}
+
+.cart-container {
+  padding: calc(var(--spacing) * 4);
+
+  grid-column: span 1;
 }
 
 @media (min-width: 768px) { /* 768px is the default md breakpoint in Tailwind */
