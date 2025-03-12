@@ -77,7 +77,6 @@ const HomePage = () => {
         "https://djevelyn.helioho.st/menu/feedback/all"
       );
       const data = await response.json();
-      // Sort reviews by date and rating
       const sortedReviews = data.sort((a, b) => {
         const dateComparison = new Date(b.date) - new Date(a.date);
         if (dateComparison === 0) {
@@ -115,7 +114,7 @@ const HomePage = () => {
 
   return (
     <HomePageCSS>
-      {/* Video Hero Section */}
+      {/* Video Section */}
       <section className="video-section">
         <video autoPlay loop muted playsInline className="hero-video">
           <source src={video} type="video/mp4" />
