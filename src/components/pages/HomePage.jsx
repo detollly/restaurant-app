@@ -159,6 +159,7 @@ const HomePage = () => {
 
       {/* Testimonials Grid Section */}
       <section className="testimonials-section">
+        <h2>Critics Reviews</h2>
         <div className="testimonials-grid">
           {testimonialData.map((item, index) => (
             <div key={index} className="testimonial-card">
@@ -464,6 +465,27 @@ const HomePageCSS = styled.div`
         rgba(129, 157, 141, 0.95),
         rgba(108, 136, 120, 0.97)
       );
+    }
+    
+    h2 {
+      text-align: center;
+      font-size: 2.8rem;
+      font-weight: 200;
+      color: #ffffff;
+      margin-bottom: 4rem;
+      letter-spacing: 0.15em;
+      position: relative;
+
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 2px;
+        background-color: #ffffff;
+      }
     }
   }
 
