@@ -194,9 +194,8 @@ const MenuCSS = styled.div `
 .grid-container {
   display: grid;
   grid-template-columns: 1fr; /* One column */
-  grid-template-rows: 67% 33%; /* Two rows, equal height */
+  grid-template-rows: 60% 40%; /* Two rows, equal height */
   height: 100vh; /* Full viewport height */
-  margin-bottom: 20px;
 
   grid-template-areas:
   'menu'
