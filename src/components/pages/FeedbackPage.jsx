@@ -11,7 +11,7 @@ function FeedbackPage() {
   {
     event.preventDefault(); /* Prevent from going to HTTP response with page reload */
 
-    fetch('http://djevelyn.helioho.st/menu/feedback/add', 
+    fetch('https://djevelyn.helioho.st/menu/feedback/add', 
       {
         method: 'POST',
         headers: {'Content-Type' : 'application/json'},
