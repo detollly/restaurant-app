@@ -6,6 +6,7 @@ import styled from 'styled-components'
 
 const Menu = ( {addItem, removeItem, quantities} ) => {
     const [menuList, setMenuList] = useState([]);
+    const [baseCategories, setBaseCategories] = useState([]); 
     const [category, setCategory] = useState('all');
 
     // Error handling
@@ -13,6 +14,9 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
     const [isError, setIsError] = useState(false); 
 
     async function getMenuItems() {
+
+        setIsLoading(true); 
+
         fetch('https://djevelyn.helioho.st/menu/items/all?key=123')
         .then(response => 
         {
@@ -25,19 +29,48 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
           
         })
         .then(data => { setMenuList(data) })
-        .catch(err => 
-        {
+        .catch(err => {
           setIsLoading(false);
           setIsError(true); 
           console.log(`Error: ${err.message}`); 
-        }
-        )
+        });
     }
 
+    async function getCategories() {
+
+      setIsLoading(true); 
+      
+      fetch('https://djevelyn.helioho.st/menu/categories')
+      .then(response => 
+      {
+        setIsLoading(false);
+
+        if (response.ok)
+          return response.json();
+        else
+          throw new Error(`HTTP error! status: ${response.status}`);
+      })
+      .then(data => { setBaseCategories( data.map(item => item.category) ) })
+      .catch(err => {
+          setIsLoading(false);
+          setIsError(true); 
+          console.log(`Error: ${err.message}`); 
+      });
+    }
+
+    // fetch
     useEffect(() => {
       getMenuItems(); 
-      console.log(`Quantities: ` + quantities); 
-      
+      getCategories();      
+    }, []);
+
+
+    // Handling category display
+    useEffect(() => 
+    {
+      if (baseCategories.length === 0)
+        return; 
+
       // Favorites handling
       const favorites = JSON.parse(localStorage.getItem('favorites'));
       
@@ -48,7 +81,7 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
         categories = ['all', 'favorites', ...baseCategories];
       }
 
-    }, []);
+    }, [baseCategories]); 
 
     function getItemDetails(givenId) {
       for (let i = 0; i < menuList.length; ++i) {
@@ -152,10 +185,6 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
   };
 
 export default Menu
-
-
-let categories = [];
-const baseCategories = ['mains', 'vegetarian', 'sides', 'drinks', 'dessert'];
 
 
 const MenuCSS = styled.div `
