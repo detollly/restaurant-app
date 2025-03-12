@@ -194,9 +194,13 @@ const MenuCSS = styled.div `
 .grid-container {
   display: grid;
   grid-template-columns: 1fr; /* One column */
-  grid-template-rows: repeat(1, 1fr); /* Two rows, equal height */
+  grid-template-rows: 67% 33%; /* Two rows, equal height */
   height: 100vh; /* Full viewport height */
   margin-bottom: 20px;
+
+  grid-template-areas:
+  'menu'
+  'cart'; 
 }
 
 .menu-container {
@@ -204,7 +208,7 @@ const MenuCSS = styled.div `
   overflow-y: auto;
   padding: calc(var(--spacing) * 6);
 
-  grid-column: span 3;
+  grid-area: menu;
 }
 
 .categories-container {
@@ -223,13 +227,15 @@ const MenuCSS = styled.div `
 .cart-container {
   padding: calc(var(--spacing) * 4);
 
-  grid-column: span 1;
+  grid-area: cart; 
 }
 
 @media (min-width: 768px) { /* 768px is the default md breakpoint in Tailwind */
   .grid-container {
-    grid-template-columns: repeat(4, 1fr); /* Four columns */
+    grid-template-columns: 75% 25%; 
     grid-template-rows: 1fr; /* One row */
+
+    grid-template-areas: 'menu cart';
   }
 
   .menu-items-container {
