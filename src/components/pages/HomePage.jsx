@@ -5,6 +5,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from "react-router-dom";
+import logotr from "../../images/logotr-isolated.png";
+
 
 // importing all the carousel images
 const carouselImages = [
@@ -121,6 +123,7 @@ const HomePage = () => {
           Your browser does not support the video tag.
         </video>
         <div className="overlay">
+          <img src={logotr} alt=""/>
           <h1>BioMorph Bistro</h1>
           <h2>A Culinary Illusion, Naturally Printed</h2>
           <h3>
@@ -147,7 +150,7 @@ const HomePage = () => {
 
       {/* Carousel Section */}
       <section className="carousel-section">
-        <h2 className="carousel-title">Chefs Special - Crafted with Care</h2>
+        <h2 className="carousel-title">Chef's Special - Crafted with Care</h2>
         <Slider {...settings}>
           {carouselImages.map((image, index) => (
             <div key={index} className="carousel-slide">
@@ -240,6 +243,11 @@ const HomePageCSS = styled.div`
     background: rgba(0, 0, 0, 0.4);
     text-align: center;
     color: white;
+  }
+
+  .overlay img {
+    width: 10%;
+    height: auto; 
   }
 
   .overlay h1 {
