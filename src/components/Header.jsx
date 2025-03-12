@@ -164,17 +164,18 @@ const NavBarCSS = styled.div`
     a {
         text-decoration: none;
         font-weight: 500;
-        font-size: 1rem;
+        font-size: 1.1rem;
         transition: color 0.3s ease, font-size 0.3s ease; /* Add transition for color and font size */
     }
     
     a:hover {
         color: #FF7F50; /* Change color on hover */
-        font-size: 1.4rem; /* Increase font size on hover */
     }
     
-    /* Media query for smaller screens */
     @media (max-width: 768px) {
+
+        width: 100vw;
+
         .hamburger {
             display: flex;
             margin-right: 1rem;
@@ -215,7 +216,6 @@ const NavBarCSS = styled.div`
 
         a:hover {
             color: #FF7F50; /* Change color on hover for mobile */
-            font-size: 1.4rem; /* Increase font size on hover for mobile */
         }
     }
 `;
