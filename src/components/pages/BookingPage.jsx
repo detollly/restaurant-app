@@ -580,6 +580,7 @@ const BookATableCSS = styled.div`
     }
     
     h2, h3 {
+        font-size: 1.5em; 
         color: #333;
     }
     
@@ -669,9 +670,22 @@ const BookATableCSS = styled.div`
         }
     }
     
+    // Display on mobile
     @media (max-width: 768px) {
         width: 90%;
         margin: 8rem auto 4rem auto;
+
+        #header {
+          
+          h1 {
+              font-size: 1em;
+              background-color: #eff3f1;
+          }
+        }
+
+        h2, h3 {
+          font-size: 1em; 
+        }
         
         .flex-col {
             flex-direction: column;
