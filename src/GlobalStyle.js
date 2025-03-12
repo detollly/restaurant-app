@@ -36,10 +36,22 @@ const GlobalStyle = createGlobalStyle`
     background-color: #e3e6e9;
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
+    overflow-x: hidden;
   }
+
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', serif;
   }
+
+  // for larger screen sizes
+  @media (min-width: 768px) { 
+  
+    html, body, #root {
+      overflow-x: auto; 
+    }
+    
+  }
+
 `;
 
 export default GlobalStyle;
