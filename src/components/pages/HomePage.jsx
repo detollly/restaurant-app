@@ -148,6 +148,7 @@ const HomePage = () => {
 
       {/* Carousel Section */}
       <section className="carousel-section">
+        <h2 className="carousel-title">Chefs Special - Crafted with Care</h2>
         <Slider {...settings}>
           {carouselImages.map((image, index) => (
             <div key={index} className="carousel-slide">
@@ -159,6 +160,7 @@ const HomePage = () => {
 
       {/* Testimonials Grid Section */}
       <section className="testimonials-section">
+        <h2>Critics Reviews</h2>
         <div className="testimonials-grid">
           {testimonialData.map((item, index) => (
             <div key={index} className="testimonial-card">
@@ -377,6 +379,31 @@ const HomePageCSS = styled.div`
       pointer-events: none;
     }
 
+    .carousel-title {
+      text-align: center;
+      font-size: 2.8rem; // Updated from 2.2rem to match other section titles
+      font-weight: 200;
+      color: #5e7269;
+      margin-bottom: 4rem; // Increased from 2.5rem to match other sections
+      letter-spacing: 0.15em; // Updated from 0.08em to match other sections
+      position: relative;
+
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: -15px; // Adjusted from -12px to match other sections
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px; // Increased from 40px to match other sections
+        height: 2px; // Increased from 1px to match other sections
+        background-color: #5e7269;
+      }
+
+      @media (max-width: 768px) {
+        font-size: 1.8rem;
+      }
+    }
+
     .carousel-slide {
       position: relative;
       z-index: 1;
@@ -464,6 +491,27 @@ const HomePageCSS = styled.div`
         rgba(129, 157, 141, 0.95),
         rgba(108, 136, 120, 0.97)
       );
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2.8rem;
+      font-weight: 200;
+      color: #ffffff;
+      margin-bottom: 4rem;
+      letter-spacing: 0.15em;
+      position: relative;
+
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 60px;
+        height: 2px;
+        background-color: #ffffff;
+      }
     }
   }
 
