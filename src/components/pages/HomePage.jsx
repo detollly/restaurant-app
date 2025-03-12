@@ -150,7 +150,7 @@ const HomePage = () => {
 
       {/* Carousel Section */}
       <section className="carousel-section">
-        <h2 className="carousel-title">Chef's Special - Crafted with Care</h2>
+        <h2 className="carousel-title">Chefs Special - Crafted with Care</h2>
         <Slider {...settings}>
           {carouselImages.map((image, index) => (
             <div key={index} className="carousel-slide">
