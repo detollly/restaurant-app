@@ -580,8 +580,12 @@ const BookATableCSS = styled.div`
     }
     
     h2, h3 {
-        font-size: 1.5em; 
+        font-size: 1.2em; 
         color: #333;
+    }
+
+    label, span {
+      font-size: 1rem;
     }
     
     .booking-button, .make-another-button, .return-home-button, .confirm-button {
@@ -641,7 +645,7 @@ const BookATableCSS = styled.div`
         border-bottom: 1px solid #eee;
         
         h2 {
-            font-size: 1.5em;
+            font-size: 1rem;
             margin: 0;
         }
         
@@ -678,13 +682,17 @@ const BookATableCSS = styled.div`
         #header {
           
           h1 {
-              font-size: 1em;
+              font-size: 1.5em;
               background-color: #eff3f1;
           }
         }
 
         h2, h3 {
-          font-size: 1em; 
+          font-size: 1.5rem; 
+        }
+
+        label, span {
+          font-size: 1.15rem;
         }
         
         .flex-col {
