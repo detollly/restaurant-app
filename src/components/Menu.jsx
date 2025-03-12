@@ -186,6 +186,8 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
 
 export default Menu
 
+let categories = []; 
+
 
 const MenuCSS = styled.div `
 
