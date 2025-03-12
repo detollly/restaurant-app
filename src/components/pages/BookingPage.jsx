@@ -214,16 +214,17 @@ const BookingPage = () => {
   
   return (
     <BookATableCSS>
-      <div className="min-h-screen bg-gradient-to-br from-[#f5f7f6] to-[#e8efeb] py-16 px-4 pt-28">
-        <div className="max-w-2xl mx-auto bg-white/90 rounded-xl shadow-xl backdrop-blur-sm border border-white/20 p-8 md:p-10">
-        <h1 className="text-center text-4xl md:text-5xl font-extralight tracking-widest text-[#5e7269] mb-8">
-          Reserve Your Experience
-        </h1>
+      <div id='header'>
+        <h1>Reserve Your Experience</h1>
+      </div>
+      
+      <div className="bg-gradient-to-br from-[#f5f7f6] to-[#e8efeb] py-16 px-4 pt-0">
+      <div className="max-w-2xl mx-auto bg-white/90 rounded-xl shadow-xl backdrop-blur-sm border border-white/20 p-8 md:p-10">
         
         {!isSubmitted ? (
           <form onSubmit={handleSubmit} className="flex flex-col gap-8">
             <div className="bg-white/70 rounded-lg p-6 shadow-sm">
-              <h2 className="text-2xl font-light tracking-wide text-[#5e7269] mb-4 pb-2 border-b border-[#5e7269]/20">
+              <h2 className="text-2xl font-light tracking-wide text-[#73A19E] mb-4 pb-2 border-b border-[#73A19E]/20">
                 Select Date & Time
               </h2>
               <p className="text-sm text-gray-600 mb-4 italic">
@@ -232,7 +233,7 @@ const BookingPage = () => {
               </p>
               
               <div className="mb-5">
-                <label htmlFor="date" className="block mb-2 font-normal text-[#5e7269]">
+                <label htmlFor="date" className="block mb-2 font-normal text-[#73A19E]">
                   Date
                 </label>
                 <input
@@ -242,7 +243,7 @@ const BookingPage = () => {
                   min={today}
                   value={formData.date}
                   onChange={handleChange}
-                  className={`w-full p-3 border ${formErrors.date ? 'border-red-500' : 'border-[#5e7269]/30'} rounded-md bg-white/80 text-base transition-all focus:outline-none focus:border-[#5e7269] focus:ring-2 focus:ring-[#5e7269]/20`}
+                  className={`w-full p-3 border ${formErrors.date ? 'border-red-500' : 'border-[#73A19E]/30'} rounded-md bg-white/80 text-base transition-all focus:outline-none focus:border-[#73A19E] focus:ring-2 focus:ring-[#73A19E]/20`}
                 />
                 {formErrors.date && (
                   <span className="text-red-500 text-sm mt-1 block">
@@ -252,7 +253,7 @@ const BookingPage = () => {
               </div>
               
               <div className="mb-5">
-                <label htmlFor="time" className="block mb-2 font-normal text-[#5e7269]">
+                <label htmlFor="time" className="block mb-2 font-normal text-[#73A19E]">
                   Time
                 </label>
                 <select
@@ -261,7 +262,7 @@ const BookingPage = () => {
                   value={formData.time}
                   onChange={handleChange}
                   disabled={!formData.date}
-                  className={`w-full p-3 border ${formErrors.time ? 'border-red-500' : 'border-[#5e7269]/30'} rounded-md bg-white/80 text-base transition-all focus:outline-none focus:border-[#5e7269] focus:ring-2 focus:ring-[#5e7269]/20 ${!formData.date ? 'opacity-60 cursor-not-allowed' : ''}`}
+                  className={`w-full p-3 border ${formErrors.time ? 'border-red-500' : 'border-[#73A19E]/30'} rounded-md bg-white/80 text-base transition-all focus:outline-none focus:border-[#73A19E] focus:ring-2 focus:ring-[#73A19E]/20 ${!formData.date ? 'opacity-60 cursor-not-allowed' : ''}`}
                 >
                   <option value="">Select a time</option>
                   {availableTimeSlots.map(time => (
@@ -278,7 +279,7 @@ const BookingPage = () => {
               </div>
               
               <div className="mb-5">
-                <label htmlFor="partySize" className="block mb-2 font-normal text-[#5e7269]">
+                <label htmlFor="partySize" className="block mb-2 font-normal text-[#73A19E]">
                   Number of Guests
                 </label>
                 <input
@@ -289,7 +290,7 @@ const BookingPage = () => {
                   max="20"
                   value={formData.partySize}
                   onChange={handleChange}
-                  className="w-full p-3 border border-[#5e7269]/30 rounded-md bg-white/80 text-base transition-all focus:outline-none focus:border-[#5e7269] focus:ring-2 focus:ring-[#5e7269]/20"
+                  className="w-full p-3 border border-[#73A19E]/30 rounded-md bg-white/80 text-base transition-all focus:outline-none focus:border-[#73A19E] focus:ring-2 focus:ring-[#73A19E]/20"
                 />
                 <span className="text-sm text-gray-600 mt-2 block">
                   {tablesNeeded > 1 
@@ -310,7 +311,7 @@ const BookingPage = () => {
                       name="joinWaitlist"
                       checked={formData.joinWaitlist}
                       onChange={handleChange}
-                      className="h-4 w-4 text-[#5e7269] focus:ring-[#5e7269]/20"
+                      className="h-4 w-4 text-[#73A19E] focus:ring-[#73A19E]/20"
                     />
                     <label htmlFor="joinWaitlist" className="text-amber-800">
                       Join our waitlist and we'll notify you if a table becomes available
@@ -321,12 +322,12 @@ const BookingPage = () => {
             </div>
             
             <div className="bg-white/70 rounded-lg p-6 shadow-sm">
-              <h2 className="text-2xl font-light tracking-wide text-[#5e7269] mb-4 pb-2 border-b border-[#5e7269]/20">
+              <h2 className="text-2xl font-light tracking-wide text-[#73A19E] mb-4 pb-2 border-b border-[#73A19E]/20">
                 Your Information
               </h2>
               
               <div className="mb-5">
-                <label htmlFor="name" className="block mb-2 font-normal text-[#5e7269]">
+                <label htmlFor="name" className="block mb-2 font-normal text-[#73A19E]">
                   Full Name
                 </label>
                 <input
@@ -335,7 +336,7 @@ const BookingPage = () => {
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
-                  className={`w-full p-3 border ${formErrors.name ? 'border-red-500' : 'border-[#5e7269]/30'} rounded-md bg-white/80 text-base transition-all focus:outline-none focus:border-[#5e7269] focus:ring-2 focus:ring-[#5e7269]/20`}
+                  className={`w-full p-3 border ${formErrors.name ? 'border-red-500' : 'border-[#73A19E]/30'} rounded-md bg-white/80 text-base transition-all focus:outline-none focus:border-[#73A19E] focus:ring-2 focus:ring-[#73A19E]/20`}
                 />
                 {formErrors.name && (
                   <span className="text-red-500 text-sm mt-1 block">
@@ -345,7 +346,7 @@ const BookingPage = () => {
               </div>
               
               <div className="mb-5">
-                <label htmlFor="email" className="block mb-2 font-normal text-[#5e7269]">
+                <label htmlFor="email" className="block mb-2 font-normal text-[#73A19E]">
                   Email Address
                 </label>
                 <input
@@ -354,7 +355,7 @@ const BookingPage = () => {
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
-                  className={`w-full p-3 border ${formErrors.email ? 'border-red-500' : 'border-[#5e7269]/30'} rounded-md bg-white/80 text-base transition-all focus:outline-none focus:border-[#5e7269] focus:ring-2 focus:ring-[#5e7269]/20`}
+                  className={`w-full p-3 border ${formErrors.email ? 'border-red-500' : 'border-[#73A19E]/30'} rounded-md bg-white/80 text-base transition-all focus:outline-none focus:border-[#73A19E] focus:ring-2 focus:ring-[#73A19E]/20`}
                 />
                 {formErrors.email && (
                   <span className="text-red-500 text-sm mt-1 block">
@@ -364,7 +365,7 @@ const BookingPage = () => {
               </div>
               
               <div className="mb-5">
-                <label htmlFor="phone" className="block mb-2 font-normal text-[#5e7269]">
+                <label htmlFor="phone" className="block mb-2 font-normal text-[#73A19E]">
                   Mobile Number
                 </label>
                 <input
@@ -374,7 +375,7 @@ const BookingPage = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   placeholder="For SMS confirmation"
-                  className={`w-full p-3 border ${formErrors.phone ? 'border-red-500' : 'border-[#5e7269]/30'} rounded-md bg-white/80 text-base transition-all focus:outline-none focus:border-[#5e7269] focus:ring-2 focus:ring-[#5e7269]/20`}
+                  className={`w-full p-3 border ${formErrors.phone ? 'border-red-500' : 'border-[#73A19E]/30'} rounded-md bg-white/80 text-base transition-all focus:outline-none focus:border-[#73A19E] focus:ring-2 focus:ring-[#73A19E]/20`}
                 />
                 {formErrors.phone && (
                   <span className="text-red-500 text-sm mt-1 block">
@@ -385,12 +386,12 @@ const BookingPage = () => {
             </div>
             
             <div className="bg-white/70 rounded-lg p-6 shadow-sm">
-              <h2 className="text-2xl font-light tracking-wide text-[#5e7269] mb-4 pb-2 border-b border-[#5e7269]/20">
+              <h2 className="text-2xl font-light tracking-wide text-[#73A19E] mb-4 pb-2 border-b border-[#73A19E]/20">
                 Special Requests
               </h2>
               
               <div className="mb-5">
-                <label htmlFor="specialRequests" className="block mb-2 font-normal text-[#5e7269]">
+                <label htmlFor="specialRequests" className="block mb-2 font-normal text-[#73A19E]">
                   Dietary Preferences or Seating Requests
                 </label>
                 <textarea
@@ -400,7 +401,7 @@ const BookingPage = () => {
                   onChange={handleChange}
                   placeholder="Tell us about any dietary restrictions or seating preferences..."
                   rows="3"
-                  className="w-full p-3 border border-[#5e7269]/30 rounded-md bg-white/80 text-base transition-all focus:outline-none focus:border-[#5e7269] focus:ring-2 focus:ring-[#5e7269]/20 resize-y"
+                  className="w-full p-3 border border-[#73A19E]/30 rounded-md bg-white/80 text-base transition-all focus:outline-none focus:border-[#73A19E] focus:ring-2 focus:ring-[#73A19E]/20 resize-y"
                 />
               </div>
               
@@ -411,7 +412,7 @@ const BookingPage = () => {
                   name="cateringRequest"
                   checked={formData.cateringRequest}
                   onChange={handleChange}
-                  className="h-4 w-4 text-[#5e7269] focus:ring-[#5e7269]/20"
+                  className="h-4 w-4 text-[#73A19E] focus:ring-[#73A19E]/20"
                 />
                 <label htmlFor="cateringRequest" className="text-gray-700">
                   I'm interested in off-site catering for a private function
@@ -427,11 +428,11 @@ const BookingPage = () => {
                   name="acceptedTerms"
                   checked={formData.acceptedTerms}
                   onChange={handleChange}
-                  className={`h-4 w-4 mt-1 text-[#5e7269] focus:ring-[#5e7269]/20 ${formErrors.acceptedTerms ? 'border-red-500' : ''}`}
+                  className={`h-4 w-4 mt-1 text-[#73A19E] focus:ring-[#73A19E]/20 ${formErrors.acceptedTerms ? 'border-red-500' : ''}`}
                 />
                 <div>
                   <label htmlFor="acceptedTerms" className="text-gray-700">
-                    I accept the <a href="#" className="text-[#5e7269] underline">terms and conditions</a>
+                    I accept the <a href="#" className="text-[#73A19E] underline">terms and conditions</a>
                   </label>
                   {formErrors.acceptedTerms && (
                     <span className="text-red-500 text-sm mt-1 block">
@@ -445,14 +446,14 @@ const BookingPage = () => {
             <div className="flex flex-col sm:flex-row gap-4 mt-6">
               <button 
                 type="submit" 
-                className={`explore-button ${(!tablesAvailable && !formData.joinWaitlist) ? 'opacity-60 cursor-not-allowed' : ''}`}
+                className={`booking-button ${(!tablesAvailable && !formData.joinWaitlist) ? 'opacity-60 cursor-not-allowed' : ''}`}
                 disabled={!tablesAvailable && !formData.joinWaitlist}
               >
                 {tablesAvailable ? "Book Your Table" : "Join Waitlist"}
               </button>
               <button 
                 type="button" 
-                className="py-3 px-6 rounded-md text-base font-normal tracking-wide text-[#5e7269] bg-transparent border border-[#5e7269] transition-all hover:bg-[#5e7269]/10"
+                className="py-3 px-6 rounded-md text-base font-normal tracking-wide text-[#73A19E] bg-transparent border border-[#73A19E] transition-all hover:bg-[#73A19E]/10"
                 onClick={handleReset}
               >
                 Reset Form
@@ -468,13 +469,13 @@ const BookingPage = () => {
           <div className="text-center">
             {!bookingConfirmed ? (
               <div className="flex flex-col items-center justify-center p-8">
-                <div className="w-12 h-12 border-3 border-[#5e7269]/30 border-t-[#5e7269] rounded-full animate-spin mb-4"></div>
+                <div className="w-12 h-12 border-3 border-[#73A19E]/30 border-t-[#73A19E] rounded-full animate-spin mb-4"></div>
                 <p className="text-gray-700">Processing your request...</p>
               </div>
             ) : (
               <>
                 <div className="bg-emerald-50/60 rounded-lg p-8 mb-8">
-                  <h2 className="text-3xl font-light tracking-wide text-[#5e7269] mb-4">
+                  <h2 className="text-3xl font-light tracking-wide text-[#73A19E] mb-4">
                     {tablesAvailable 
                       ? "Reservation Request Received" 
                       : "You've Been Added to Our Waitlist"}
@@ -486,7 +487,7 @@ const BookingPage = () => {
                   </p>
                   
                   <div className="bg-white rounded-md p-6 my-6 text-left shadow-sm">
-                    <h3 className="text-xl font-normal text-[#5e7269] mb-4">Your Details</h3>
+                    <h3 className="text-xl font-normal text-[#73A19E] mb-4">Your Details</h3>
                     <ul className="space-y-3">
                       <li><span className="font-semibold">Date:</span> {new Date(formData.date).toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}</li>
                       <li><span className="font-semibold">Time:</span> {formData.time}</li>
@@ -508,13 +509,13 @@ const BookingPage = () => {
                 
                 <div className="flex flex-col sm:flex-row gap-4 justify-center">
                   <button 
-                    className="py-3 px-6 rounded-md text-base font-normal tracking-wide text-white bg-[#5e7269] border-none transition-all hover:bg-[#4a5b53] hover:translate-y-[-2px] hover:shadow-lg hover:shadow-[#5e7269]/30"
+                    className="make-another-button"
                     onClick={handleReset}
                   >
                     Make Another Reservation
                   </button>
                   <button 
-                    className="py-3 px-6 rounded-md text-base font-normal tracking-wide text-[#5e7269] bg-transparent border border-[#5e7269] transition-all hover:bg-[#5e7269]/10"
+                    className="return-home-button"
                     onClick={handleReturnHome}
                   >
                     Return to Home
@@ -556,140 +557,128 @@ const BookingPage = () => {
 export default BookingPage;
 
 const BookATableCSS = styled.div`
-  .explore-button {
-    width: 25%;
-    padding: 1rem 2.5rem;
-    font-size: 1.125rem;
-    font-weight: 300;
-    letter-spacing: 0.1em;
-    color: white;
-    background: #5e7269;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    margin: 10rem auto 5rem auto;
+    width: 80%; /* Changed from 45% to 80% to match CheckoutPage */
+    max-width: 1200px;
+    min-height: calc(100vh - 10rem - 10rem);
     overflow: hidden;
-    z-index: 1;
-    flex-grow: 1;
+    background-color: #FAF9F6;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
-    &:before {
-      content: "";
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      width: 100%;
-      height: 0%;
-      background: #4a5b53;
-      transition: height 0.3s ease;
-      z-index: -1;
+    #header {
+        text-align: center;
+        margin-bottom: 20px;
+        h1 {
+            font-size: 2em;
+            color: #333;
+            background-color: #eff3f1;
+        }
+    }
+    
+    h2, h3 {
+        color: #333;
+    }
+    
+    .booking-button, .make-another-button, .return-home-button, .confirm-button {
+        padding: 10px 20px;
+        background-color: #73A19E;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 1em;
+        cursor: pointer;
+        transition: background-color 0.2s;
+
+        &:hover {
+            background-color: rgb(83, 121, 117);
+        }
+    }
+    
+    .return-home-button {
+        background-color: transparent;
+        color: #73A19E;
+        border: 1px solid #73A19E;
+        
+        &:hover {
+            background-color: rgba(115, 161, 158, 0.1);
+        }
     }
 
-    &:hover {
-      border-color: #4a5b53;
-      transform: translateY(-2px);
-      box-shadow: 0 0 20px rgba(94, 114, 105, 0.6);
-
-      &:before {
+    /* Modal Styles */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
         height: 100%;
-      }
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
     }
-  }
 
-  /* Modal Styles */
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    backdrop-filter: blur(4px);
-  }
-
-  .modal-content {
-    background: white;
-    border-radius: 10px;
-    width: 90%;
-    max-width: 500px;
-    box-shadow: 0 5px 30px rgba(0, 0, 0, 0.15);
-    animation: modalFadeIn 0.3s ease-out forwards;
-    overflow: hidden;
-  }
-
-  @keyframes modalFadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
+    .modal-content {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        width: 400px;
+        max-width: 90%;
     }
-    to {
-      opacity: 1;
-      transform: translateY(0);
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #eee;
+        
+        h2 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+        
+        .close-button {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
     }
-  }
 
-  .modal-header {
-    background: #5e7269;
-    color: white;
-    padding: 1.25rem 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
-  .modal-header h2 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 300;
-    letter-spacing: 0.1em;
-  }
-
-  .close-button {
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 0;
-    line-height: 1;
-  }
-
-  .modal-body {
-    padding: 2rem 1.5rem;
-    font-size: 1.1rem;
-    line-height: 1.6;
-    color: #333;
-  }
-
-  .modal-footer {
-    padding: 1rem 1.5rem;
-    display: flex;
-    justify-content: flex-end;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-  }
-
-  .confirm-button {
-    padding: 0.75rem 2rem;
-    background: #5e7269;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    letter-spacing: 0.05em;
-    width: 100px;
-    text-align: center;
-
-    &:hover {
-      background: #4a5b53;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(94, 114, 105, 0.3);
+    .modal-body {
+        margin-bottom: 20px;
     }
-  }
+
+    .modal-footer {
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .confirm-button {
+        background-color: #73A19E;
+        
+        &:hover {
+            background-color: rgb(83, 121, 117);
+        }
+    }
+    
+    @media (max-width: 768px) {
+        width: 90%;
+        margin: 8rem auto 4rem auto;
+        
+        .flex-col {
+            flex-direction: column;
+        }
+        
+        button {
+            width: 100%;
+        }
+    }
 `;
