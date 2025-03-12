@@ -294,12 +294,12 @@ const SubmitButton = styled.button`
   transition: all 0.2s;
   
   &.active {
-    background-color: #28a745;
+    background-color: #FF7F50;
     color: white;
     cursor: pointer;
     
     &:hover {
-      background-color: #218838;
+      background-color: rgb(184, 89, 54);
     }
   }
 `;
