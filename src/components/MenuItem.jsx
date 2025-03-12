@@ -20,7 +20,7 @@ export default function MenuItem({ id, name, description, price, category, image
                 {category}
               </span>
               <h2 className="text-xl font-bold mb-1">{name}</h2>
-              <p className="text-lg font-medium">£{price}</p>
+              <p className="text-lg font-medium">£{price.toFixed(2)}</p>
               <p className="text-sm opacity-90">Qty: {getItemQuantity}</p>
             </div>
           </Link>
@@ -58,7 +58,7 @@ export default function MenuItem({ id, name, description, price, category, image
             ) : (
               <button 
                 onClick={addItem} 
-                className="w-full py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium"
+                className="w-full py-3 bg-teal-700 text-white rounded-full hover:bg-teal-600 transition-colors font-medium"
               >
                 Add to Cart
               </button>
