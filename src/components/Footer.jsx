@@ -115,12 +115,10 @@ const FooterCSS = styled.div`
   a, .div4 a, .div3 a, a:link, a:visited {
     color: inherit; /* Maintain the same color as the parent */
     text-decoration: none; /* Remove underline */
-    transition: color 0.3s ease, font-size 0.3s ease;
   }
 
   a:hover, .div4 a:hover, .div3 a:hover, a:link:hover, a:visited:hover {
     color: #FF7F50; /* Change color on hover */
-    font-size: 1.2rem; /* Increase font size on hover */
   }
 `;
 
