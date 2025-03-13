@@ -50,7 +50,9 @@ function NavBar() {
               </Link>
             </li>
             <li>
-              <Link to="/feedback">Feedback</Link>
+              <Link to="/feedback" onClick={toggleMenu}>
+              Feedback
+              </Link>
             </li>
             <li>
               <Link to="/checkout" onClick={toggleMenu}>
