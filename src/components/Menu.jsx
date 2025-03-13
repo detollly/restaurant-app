@@ -105,7 +105,6 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
       if (favorites === null || favorites === undefined || favorites.length === 0)
         categories = ['all', ...baseCategories];
       else {
-        console.log(`Favorites length is ${favorites.length}. Elements are {${favorites}}`)
         categories = ['all', 'favorites', ...baseCategories];
       }
 

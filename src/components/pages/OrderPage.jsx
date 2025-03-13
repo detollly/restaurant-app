@@ -19,7 +19,6 @@ const OrderPage = () => {
         {
             /* Set starting values */
             const cartSelectedItems = getSelectedItemsFromQuantities( cart );
-            console.log(`cartSelectedItems = ${cartSelectedItems}`); 
 
             setSelectedItems( [...cartSelectedItems] );   
             
@@ -99,8 +98,6 @@ const OrderPage = () => {
 
             workingQuantities[`${uniqueItem}`] = count; 
         }
-
-        console.log(JSON.stringify(workingQuantities));
 
         setQuantities({...workingQuantities});
         return { ...workingQuantities};
