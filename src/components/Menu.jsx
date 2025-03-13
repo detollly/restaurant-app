@@ -2,6 +2,7 @@ import React , {useEffect, useState} from "react";
 import MenuItem from "./MenuItem";
 import Cart from "./Cart";
 import styled from 'styled-components'
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 const Menu = ( {addItem, removeItem, quantities} ) => {
@@ -12,6 +13,11 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
     // Error handling
     const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false); 
+
+    // Cart toggle
+    const [open, setOpen] = useState(false); 
+    const [spanValue, setSpanValue] = useState(getSpanValue(false)); 
+
 
     async function getMenuItems() {
 
@@ -110,6 +116,13 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
       }
     };
 
+    // Cart sizing
+
+    useEffect(() => {
+      setSpanValue(getSpanValue(open));
+      console.log(`spanValue is ${spanValue}`)
+    }, [open]);
+
 
     // Error rendering
     if (isLoading)
@@ -133,7 +146,7 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
     return (
       <MenuCSS>
       <div className="grid-container">
-        <div className="menu-container">        
+        <div className="menu-container" style={{ gridRow : `1 / ${spanValue}`}}>        
           <h1>
             Menu
           </h1>
@@ -169,7 +182,8 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
           </div>
         </div>
 
-        <div className='cart-container'>
+        <div className='cart-container' style={{ gridRow : `${spanValue} / 10` }}>
+          <button id="cartToggle" onClick={() => setOpen(!open)}> Toggle </button>
           <Cart 
             menuList={menuList} 
             getItemDetails={getItemDetails} 
@@ -186,6 +200,21 @@ export default Menu
 
 let categories = []; 
 
+function getSpanValue(open)
+{
+  if (open)
+    return 3;
+  else
+    return 6; 
+}
+
+function getToggleIcon(open)
+{
+  if (open)
+    return 
+}
+
+
 
 const MenuCSS = styled.div `
 
@@ -200,7 +229,7 @@ h1 {
 .grid-container {
   display: grid;
   grid-template-columns: 1fr; /* One column */
-  grid-template-rows: 60% 40%; /* Two rows, equal height */
+  grid-template-rows: repeat(10, 1fr); /* Two rows, equal height */
   height: 100vh; /* Full viewport height */
 
   grid-template-areas:
@@ -217,7 +246,7 @@ h1 {
   border-radius: 6px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 
-  grid-area: menu;
+  //grid-area: menu;
 }
 
 .categories-container {
@@ -240,7 +269,13 @@ h1 {
 .cart-container {
   padding: calc(var(--spacing) * 4);
 
-  grid-area: cart; 
+  //grid-area: cart; 
+
+  #cartToggle {
+    width: 100%;
+    text-align: center; 
+  }
+
 }
 
 @media (min-width: 768px) { /* 768px is the default md breakpoint in Tailwind */
@@ -258,6 +293,12 @@ h1 {
   .categories-container {
     overflow-x: hidden; 
   }
+
+  .cart-container {
+    #cartToggle {
+      display: none;
+    }
+  } 
 }
 
 `
