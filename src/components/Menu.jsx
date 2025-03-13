@@ -16,7 +16,29 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
 
     // Cart toggle
     const [open, setOpen] = useState(false); 
+    const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 768);
     const [spanValue, setSpanValue] = useState(getSpanValue(false)); 
+
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsLargeScreen(window.innerWidth >= 768);
+        };
+
+        window.addEventListener('resize', handleResize);
+
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
+    function getSpanValue(open)
+    {
+      if (isLargeScreen)
+        return 1;
+      if (open)
+        return 3;
+      else
+        return 6; 
+    }
 
 
     async function getMenuItems() {
@@ -201,14 +223,6 @@ export default Menu
 
 let categories = []; 
 
-function getSpanValue(open)
-{
-  if (open)
-    return 3;
-  else
-    return 6; 
-}
-
 function getToggleIcon(open)
 {
   if (open)
@@ -235,9 +249,9 @@ h1 {
   grid-template-rows: repeat(10, 1fr); /* Two rows, equal height */
   height: 100vh; /* Full viewport height */
 
-  grid-template-areas:
+  /* grid-template-areas:
   'menu'
-  'cart'; 
+  'cart';  */
 }
 
 .menu-container {
@@ -249,7 +263,7 @@ h1 {
   border-radius: 6px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 
-  //grid-area: menu;
+  grid-area: menu;
 }
 
 .categories-container {
@@ -272,7 +286,7 @@ h1 {
 .cart-container {
   padding: calc(var(--spacing) * 4);
 
-  //grid-area: cart; 
+  grid-area: cart; 
 
   #cartToggle {
     width: 100%;
