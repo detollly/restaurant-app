@@ -183,7 +183,8 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
         </div>
 
         <div className='cart-container' style={{ gridRow : `${spanValue} / 10` }}>
-          <button id="cartToggle" onClick={() => setOpen(!open)}> Toggle </button>
+          <button id="cartToggle" onClick={() => setOpen(!open)}> 
+          <i className={getToggleIcon(open)}> </i> </button>
           <Cart 
             menuList={menuList} 
             getItemDetails={getItemDetails} 
@@ -211,7 +212,9 @@ function getSpanValue(open)
 function getToggleIcon(open)
 {
   if (open)
-    return 
+    return "fa-solid fa-chevron-down";
+  else
+    return "fa-solid fa-chevron-up"; 
 }
 
 
