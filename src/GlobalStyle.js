@@ -37,6 +37,7 @@ const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     font-family: 'Montserrat', sans-serif;
     overflow-x: hidden;
+
   }
 
   h1, h2, h3, h4, h5, h6 {

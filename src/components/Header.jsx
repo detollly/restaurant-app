@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../images/logo.png";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 function NavBar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -49,12 +50,12 @@ function NavBar() {
               </Link>
             </li>
             <li>
-              <Link to="/checkout" onClick={toggleMenu}>
-                Checkout
-              </Link>
+              <Link to="/feedback">Feedback</Link>
             </li>
             <li>
-              <Link to="/feedback">Feedback</Link>
+              <Link to="/checkout" onClick={toggleMenu}>
+                <i className="fas fa-shopping-cart"></i> Checkout
+              </Link>
             </li>
           </ul>
         </nav>
