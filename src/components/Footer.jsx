@@ -114,12 +114,16 @@ const FooterCSS = styled.div`
 
   a, .div4 a, .div3 a, a:link, a:visited {
     color: inherit; /* Maintain the same color as the parent */
-    text-decoration: none; /* Remove underline */
+    text-decoration: none;
   }
 
   a:hover, .div4 a:hover, .div3 a:hover, a:link:hover, a:visited:hover {
-    color: #FF7F50; /* Change color on hover */
+    color: #FF7F50; 
   }
+
+  .fab:hover {
+    color: #FAF9F6;
+  } 
 `;
 
 export default Footer;
