@@ -142,8 +142,7 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
 
     useEffect(() => {
       setSpanValue(getSpanValue(open));
-      console.log(`spanValue is ${spanValue}`)
-    }, [open]);
+    }, [open, isLargeScreen]);
 
 
     // Error rendering
