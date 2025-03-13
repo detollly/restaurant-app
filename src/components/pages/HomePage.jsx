@@ -5,6 +5,8 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from "react-router-dom";
+import logotr from "../../images/logotr-isolated.png";
+
 
 // importing all the carousel images
 const carouselImages = [
@@ -77,7 +79,6 @@ const HomePage = () => {
         "https://djevelyn.helioho.st/menu/feedback/all"
       );
       const data = await response.json();
-      // Sort reviews by date and rating
       const sortedReviews = data.sort((a, b) => {
         const dateComparison = new Date(b.date) - new Date(a.date);
         if (dateComparison === 0) {
@@ -115,13 +116,14 @@ const HomePage = () => {
 
   return (
     <HomePageCSS>
-      {/* Video Hero Section */}
+      {/* Video Section */}
       <section className="video-section">
         <video autoPlay loop muted playsInline className="hero-video">
           <source src={video} type="video/mp4" />
           Your browser does not support the video tag.
         </video>
         <div className="overlay">
+          <img src={logotr} alt=""/>
           <h1>BioMorph Bistro</h1>
           <h2>A Culinary Illusion, Naturally Printed</h2>
           <h3>
@@ -241,6 +243,11 @@ const HomePageCSS = styled.div`
     background: rgba(0, 0, 0, 0.4);
     text-align: center;
     color: white;
+  }
+
+  .overlay img {
+    width: 10%;
+    height: auto; 
   }
 
   .overlay h1 {

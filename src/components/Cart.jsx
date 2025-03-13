@@ -91,6 +91,7 @@ const CartCSS = styled.div`
     border-radius: 8px;
 
     .cart-header {
+
         text-align: center;
         margin-bottom: 20px;
         
@@ -152,11 +153,38 @@ const CartCSS = styled.div`
     }
     
     @media (max-width: 768px) {
+
+      .cart-header {
+          display: flex;
+          justify-content: space-evenly;
+          align-items: center;
+
+          text-align: center;
+          margin-bottom: 5px;
+
+          h2 {
+              font-size: 1.4em;
+              color: #333;
+              margin-bottom: 10px;
+          }
+          
+          .total {
+              font-size: 1.0em;
+              font-weight: bold;
+              color: #003366;
+          }
+        }
+
         .checkout-button {
+            
+            margin-top: 5px;
+            padding-top: 5px;
+
             justify-content: center;
         }
         
         .checkout-button button {
+            padding: 5px 10px;
             width: 100%;
         }
     }
