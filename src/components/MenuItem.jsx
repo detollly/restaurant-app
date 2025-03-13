@@ -1,18 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 export default function MenuItem({ id, name, description, price, category, image, addItem, removeItem, getItemQuantity = 0 })
 {
     const [showDescription, setShowDescription] = useState(false);
-    
+    const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= 768);
+
     const toggleDescription = (e) => {
       e.preventDefault();
       setShowDescription(!showDescription);
     };
+
+    useEffect(() => {
+          const handleResize = () => {
+              setIsLargeScreen(window.innerWidth >= 768);
+          };
+  
+          window.addEventListener('resize', handleResize);
+  
+          return () => window.removeEventListener('resize', handleResize);
+      }, []);
     
     return (
-      <div className="relative flex flex-col rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-1 w-full h-[420px] bg-white" 
-           style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
+      <div className="relative flex flex-col rounded-lg overflow-hidden shadow-lg transition-transform duration-300 hover:-translate-y-1 w-full bg-white" 
+           style={{ backgroundImage: `url(${image})`, backgroundSize: 'cover', backgroundPosition: 'center', height: isLargeScreen? "420px" : "315px" }}>
         <div className="flex flex-col h-full bg-gradient-to-t from-black/80 via-black/50 to-transparent p-4">
           <Link to={`/item/${id}`} className="flex-1 flex flex-col text-white">
             <div className="mt-auto">
