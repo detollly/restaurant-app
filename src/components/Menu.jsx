@@ -134,10 +134,8 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
       <MenuCSS>
       <div className="grid-container">
         <div className="menu-container">        
-          <h1 className="text-3xl font-bold text-center text-natural-dark mb-8">
-            <i className="mdi mdi-leaf-maple mr-2"></i>
+          <h1>
             Menu
-            <i className="mdi mdi-atom ml-2"></i>
           </h1>
 
         <div style={ {display: 'flex', justifyContent: 'center'} }>
@@ -191,6 +189,14 @@ let categories = [];
 
 const MenuCSS = styled.div `
 
+h1 {
+    font-size: 2em;
+    color: #333;
+    padding: 5px;
+    text-align: center;
+    //box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: 1fr; /* One column */
@@ -206,6 +212,10 @@ const MenuCSS = styled.div `
   height: 100%; 
   overflow-y: auto;
   padding: calc(var(--spacing) * 6);
+  
+  background-color: #eff3f1;
+  border-radius: 6px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
 
   grid-area: menu;
 }
@@ -214,13 +224,17 @@ const MenuCSS = styled.div `
   display: flex;
   overflow-x: auto; 
   justify-content: flex-start; 
+  margin-top: 2rem;
   margin-bottom: 2rem; 
+
+  background-color: #FAF9F6;
+  border-radius: 20px;
 }
 
 .menu-items-container {
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  gap: calc(var(--spacing) * 4)
+  gap: calc(var(--spacing) * 4);
 }
 
 .cart-container {
