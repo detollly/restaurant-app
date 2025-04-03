@@ -1,11 +1,16 @@
-import React , {useEffect, useState} from "react";
+import React , {useEffect, useState, useContext} from "react";
 import MenuItem from "./MenuItem";
 import Cart from "./Cart";
 import styled from 'styled-components'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+import { BackendContext } from "../App";
+
 
 const Menu = ( {addItem, removeItem, quantities} ) => {
+
+    const fauxFetch = useContext(BackendContext); 
+
     const [menuList, setMenuList] = useState([]);
     const [baseCategories, setBaseCategories] = useState([]); 
     const [category, setCategory] = useState('all');
@@ -45,7 +50,7 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
 
         setIsLoading(true); 
 
-        fetch('https://djevelyn.helioho.st/menu/items/all?key=123')
+        fauxFetch('/menu/items/all')
         .then(response => 
         {
           setIsLoading(false);
@@ -68,7 +73,7 @@ const Menu = ( {addItem, removeItem, quantities} ) => {
 
       setIsLoading(true); 
       
-      fetch('https://djevelyn.helioho.st/menu/categories')
+      fauxFetch('/menu/categories')
       .then(response => 
       {
         setIsLoading(false);
