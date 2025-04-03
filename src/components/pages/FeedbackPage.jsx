@@ -1,7 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
 
+import { BackendContext } from '../../App';
+
 function FeedbackPage() {
+
+  const fauxFetch = useContext(BackendContext); 
+
   const [formData, setFormData] = useState({customer_name: '', customer_email: '', rating: '', comments: '', visit_date: ''}); 
 
   // 0 no submission, 1 successful submission, -1 failed submission
@@ -10,7 +15,7 @@ function FeedbackPage() {
   const submitFeedback = (event) => {
     event.preventDefault(); /* Prevent from going to HTTP response with page reload */
 
-    fetch('https://djevelyn.helioho.st/menu/feedback/add', 
+    fauxFetch('/menu/feedback/add', 
       {
         method: 'POST',
         headers: {'Content-Type': 'application/json'},
@@ -21,7 +26,8 @@ function FeedbackPage() {
       if (!response.ok)
         throw new Error(`HTTP error! status: ${response.status}`);
       else
-        setSubmitState(1); 
+        
+      setSubmitState(1); 
     })
     .catch(err => {
       setSubmitState(-1);

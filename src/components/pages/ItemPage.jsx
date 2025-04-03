@@ -1,8 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import styled from 'styled-components';
 import { useParams, useNavigate } from 'react-router-dom';
 
+import { BackendContext } from '../../App';
+
+
 export default function ItemPage() {
+
+    const fauxFetch = useContext(BackendContext); 
     
     const { itemId } = useParams();
     const navigate = useNavigate();
@@ -28,7 +33,7 @@ export default function ItemPage() {
     async function getItemInfo() {
         setLoading(true);
         try {
-            const response = await fetch(`https://djevelyn.helioho.st/menu/id/${itemId}`);
+            const response = await fauxFetch(`/menu/id/${itemId}`);
             
             if (!response.ok) {
                 throw new Error('Failed to fetch item details');

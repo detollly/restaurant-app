@@ -1,9 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from 'styled-components'; 
 import { Link } from 'react-router-dom';
 import PaymentModal from './PaymentModal'; // Import the new PaymentModal component
 
+import { BackendContext } from "../../App";
+
 export default function CheckoutPage() {
+
+    const fauxFetch = useContext(BackendContext);
+
     const [itemDetails, setItemDetails] = useState([]);
     const [total, setTotal] = useState(0);
     const [cartItems, setCartItems] = useState(getCartItems());
@@ -31,7 +36,7 @@ export default function CheckoutPage() {
     async function getItemDetails() {
         try 
         {
-            const response = await fetch('https://djevelyn.helioho.st/menu/items/all?key=123');
+            const response = await fauxFetch('/menu/items/all?key=123');
 
             if (!response.ok)
                 throw new Error(`HTTP error! status: ${response.status}`);

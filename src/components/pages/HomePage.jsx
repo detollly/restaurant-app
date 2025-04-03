@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import styled from "styled-components";
 import video from "../videos/biomorph.mp4";
 import Slider from "react-slick";
@@ -6,6 +6,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { useNavigate } from "react-router-dom";
 import logotr from "../../images/logotr-isolated.png";
+
+import { BackendContext } from "../../App";
 
 
 // importing all the carousel images
@@ -66,6 +68,9 @@ const StarRating = ({ rating }) => (
 );
 
 const HomePage = () => {
+
+  const fauxFetch = useContext(BackendContext);
+
   const navigate = useNavigate();
   const [customerReviews, setCustomerReviews] = useState([]);
 
@@ -75,8 +80,8 @@ const HomePage = () => {
 
   const fetchCustomerReviews = async () => {
     try {
-      const response = await fetch(
-        "https://djevelyn.helioho.st/menu/feedback/all"
+      const response = await fauxFetch(
+        "/menu/feedback/all"
       );
       const data = await response.json();
       const sortedReviews = data.sort((a, b) => {
